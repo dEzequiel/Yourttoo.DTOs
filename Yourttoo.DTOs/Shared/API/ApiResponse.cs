@@ -1,4 +1,6 @@
-﻿namespace Yourttoo.DTOs.Shared.API
+﻿using Yourttoo.DTOs.Shared.Pagination;
+
+namespace Yourttoo.DTOs.Shared.API
 {
     /// <summary>
     /// Class to build and represent API responses.
@@ -39,6 +41,15 @@
         }
 
         /// <summary>
+        /// Constructor
+        /// </summary>
+        public ApiResponse(string message, bool succeeded)
+        {
+            Succeeded = succeeded;
+            Message = message;
+        }
+
+        /// <summary>
         /// Succeeded
         /// </summary>
         public bool Succeeded { get; set; }
@@ -57,5 +68,28 @@
         /// Data
         /// </susmmary>
         public T? Data { get; set; }
+    }
+
+    /// <summary>
+    /// API Response with pagination support
+    /// </summary>
+    public class PaginatedApiResponse<T> : ApiResponse<List<T>>
+    {
+        /// <summary>
+        /// Pagination information
+        /// </summary>
+        public PaginatedParameters? Pagination { get; set; }
+
+        public PaginatedApiResponse() { }
+
+        public PaginatedApiResponse(List<T> data, PaginatedParameters pagination, string message = "")
+            : base(data, message)
+        {
+            Pagination = pagination;
+        }
+
+        public PaginatedApiResponse(string errorMessage) : base(errorMessage)
+        {
+        }
     }
 }

@@ -7,8 +7,8 @@ namespace Yourttoo.DTOs.Requests.AdditionalText
     public class PatchAdditionalTextRequest : RequestPayloadBase
     {
         public Guid Id { get; set; } = Guid.Empty;
-        public List<IdiomaticText> Title { get; set; } = new();
-        public List<IdiomaticText>? Content { get; set; } = new();
+        public List<MultiLanguageText> Title { get; set; } = new();
+        public List<MultiLanguageText>? Content { get; set; } = new();
         public string Status { get; set; } = string.Empty;
 
         public PatchAdditionalTextRequest() { }

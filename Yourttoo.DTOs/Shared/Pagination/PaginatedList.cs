@@ -1,18 +1,22 @@
 ﻿namespace Yourttoo.DTOs.Shared.Pagination
 {
-    public class PaginatedList<T> : List<T>
+    public class PaginatedList<T>
     {
-        public PaginatedParameters Parameters { get; set; }
+        public PaginatedParameters Pagination { get; set; }
+        public List<T> Items { get; set; }
+        
         public PaginatedList(List<T> items, int count, int pageNumber, int pageSize)
         {
-            Parameters = new PaginatedParameters
+            Pagination = new PaginatedParameters
             {
                 TotalCount = count,
                 PageSize = pageSize,
                 Page = pageNumber,
-                TotalPages = (int)Math.Ceiling(count / (double)pageSize)
+                TotalPages = (int)Math.Ceiling(count / (double)pageSize),
+                HasNextPage = pageNumber * pageSize < count,
+                HasPreviousPage = pageNumber > 1
             };
-            AddRange(items);
+            Items = items;
         }
 
         public static PaginatedList<T> ToPaginatedList(IEnumerable<T> source, int pageNumber, int pageSize)

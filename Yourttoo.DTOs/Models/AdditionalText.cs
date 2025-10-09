@@ -5,8 +5,8 @@ namespace Yourttoo.DTOs.Models
     public class AdditionalText : IEntity
     {
         public Guid Id { get; set; }
-        public List<IdiomaticText> Title { get; set; } = new();
-        public List<IdiomaticText>? Content { get; set; } = new();
+        public List<MultiLanguageText> Title { get; set; } = new();
+        public List<MultiLanguageText>? Content { get; set; } = new();
         public string Status { get; set; } = string.Empty;
         public string CreatedBy { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }

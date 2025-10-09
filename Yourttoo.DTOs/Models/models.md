@@ -1,0 +1,1 @@
+Esta carpeta unicamente existe por la necesidad de tener modelos para crear la base de datos que la api de pruebas consume.

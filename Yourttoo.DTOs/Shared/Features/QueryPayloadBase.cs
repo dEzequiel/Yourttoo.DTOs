@@ -8,6 +8,5 @@ namespace Yourttoo.DTOs.Shared.Features
     /// </summary>
     public abstract class QueryPayloadBase : RequestPayloadBase
     {
-        public PaginatedParameters? Pagination { get; set; } 
     }
 }

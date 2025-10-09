@@ -9,11 +9,11 @@ namespace Yourttoo.Api.Mappings
     {
         public AdditionalTextProfile() {
             CreateMap<AdditionalText, AdditionalTextDTO>()
-                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title.FirstOrDefault() ?? new IdiomaticText()))
-                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Content!.FirstOrDefault() ?? new IdiomaticText()));
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title.FirstOrDefault() ?? new MultiLanguageText()))
+                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Content!.FirstOrDefault() ?? new MultiLanguageText()));
             CreateMap<AdditionalTextDTO, AdditionalText>()
-                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => new List<IdiomaticText> { src.Title }))
-                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => new List<IdiomaticText> { src.Content! }));
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => new List<MultiLanguageText> { src.Title }))
+                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => new List<MultiLanguageText> { src.Content! }));
             CreateMap<AdditionalText, AdditionalTextDetailDTO>()
                 .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
                 .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Content));

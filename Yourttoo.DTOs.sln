@@ -1,11 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yourttoo.DTOs", "Yourttoo.DTOs\Yourttoo.DTOs.csproj", "{4DB50FF3-8092-4584-8A7F-367F3D44E235}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yourttoo.Api", "Yourttoo.Api\Yourttoo.Api.csproj", "{619A6684-1E0B-42EA-B326-283894936208}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4DB50FF3-8092-4584-8A7F-367F3D44E235} = {4DB50FF3-8092-4584-8A7F-367F3D44E235}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +27,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0FBD7720-E489-402A-818D-AB6D216368E0}
 	EndGlobalSection
 EndGlobal
