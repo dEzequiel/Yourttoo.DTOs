@@ -43,6 +43,21 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddAutoMapper(cfg => cfg.AddMaps(typeof(Program)));
 
+const string CorsPolicy = "frontend";
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy(CorsPolicy, p =>
+        p.WithOrigins(
+            "http://localhost:5173",                       // dev local
+            "https://web-deploy-bve1.onrender.com"  // cambia por tu dominio del frontend
+        )
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+    // si algún día usas cookies/token en cabecera y necesitas credenciales:
+    //.AllowCredentials()
+    );
+});
+
 var app = builder.Build();
 
 // 🔸 Procesa los headers del proxy de Render (Host / Proto)
