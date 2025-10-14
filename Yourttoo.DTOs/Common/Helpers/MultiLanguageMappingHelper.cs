@@ -5,6 +5,7 @@ using Yourttoo.DTOs.DTOs.AdditionalText;
 using Yourttoo.DTOs.DTOs.FrequentlyAskedQuestion.Section;
 using Yourttoo.DTOs.DTOs.FrequentlyAskedQuestion.Content;
 using Yourttoo.DTOs.DTOs.Geolocation.Zone;
+using Yourttoo.DTOs.DTOs.Geolocation.Country;
 using Yourttoo.DTOs.Models.Tagging;
 using Yourttoo.DTOs.Models;
 using Yourttoo.DTOs.Models.FrequentlyAskedQuestions;
@@ -294,6 +295,80 @@ namespace Yourttoo.DTOs.Common.Helpers
                 Category = zone.Category,
                 PromotionArea = zone.PromotionArea,
                 PromotionAreaPriority = zone.PromotionAreaPriority
+            };
+        }
+
+        /// <summary>
+        /// Maps Country entity to CountryDTO with language selection
+        /// </summary>
+        /// <param name="country">Country entity</param>
+        /// <param name="language">Preferred language code</param>
+        /// <returns>CountryDTO with content in the specified language</returns>
+        public static CountryDTO MapToCountryDto(Country country, string? language)
+        {
+            return new CountryDTO
+            {
+                Id = country.Id,
+                Latitude = country.Latitude,
+                Longitude = country.Longitude,
+                AveragePrice = country.AveragePrice,
+                Name = country.Name.GetByLanguageOrDefault(language),
+                Description = country.Description?.GetByLanguageOrDefault(language),
+                ImageUrl = country.ImageUrl,
+                IconUrl = country.IconUrl,
+                BackgroundColor = country.BackgroundColor,
+                Status = country.Status,
+                ThumbnailUrl = country.ThumbnailUrl,
+                Category = country.Category,
+                Currency = country.Currency,
+                CurrencySymbol = country.CurrencySymbol,
+                Language = country.Language,
+                LanguageCode = country.LanguageCode,
+                TimeZone = country.TimeZone,
+                CreatedBy = country.CreatedBy,
+                CreatedAt = country.CreatedAt,
+                UpdatedBy = country.UpdatedBy,
+                UpdatedAt = country.UpdatedAt
+            };
+        }
+
+        /// <summary>
+        /// Maps list of Country entities to CountryDTO list with language selection
+        /// </summary>
+        /// <param name="countries">List of Country entities</param>
+        /// <param name="language">Preferred language code</param>
+        /// <returns>List of CountryDTO with content in the specified language</returns>
+        public static List<CountryDTO> MapToCountryDtos(IEnumerable<Country> countries, string? language)
+        {
+            return countries.Select(country => MapToCountryDto(country, language)).ToList();
+        }
+
+        /// <summary>
+        /// Maps Country entity to CountryDetailDTO (preserves all languages)
+        /// </summary>
+        /// <param name="country">Country entity</param>
+        /// <returns>CountryDetailDTO with all language content</returns>
+        public static CountryDetailDTO MapToCountryDetailDto(Country country)
+        {
+            return new CountryDetailDTO
+            {
+                Id = country.Id,
+                Latitude = country.Latitude,
+                Longitude = country.Longitude,
+                AveragePrice = country.AveragePrice,
+                Name = country.Name,
+                Description = country.Description,
+                ImageUrl = country.ImageUrl,
+                IconUrl = country.IconUrl,
+                BackgroundColor = country.BackgroundColor,
+                Status = country.Status,
+                ThumbnailUrl = country.ThumbnailUrl,
+                Category = country.Category,
+                Currency = country.Currency,
+                CurrencySymbol = country.CurrencySymbol,
+                Language = country.Language,
+                LanguageCode = country.LanguageCode,
+                TimeZone = country.TimeZone
             };
         }
     }
