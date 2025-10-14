@@ -12,5 +12,7 @@ namespace Yourttoo.DTOs.Shared.Features
         /// Used for audit purposes
         /// </summary>
         public string? CreatedBy { get; set; } = null;
+
+        public string? UpdatedBy { get; set; } = null;
     }
 }

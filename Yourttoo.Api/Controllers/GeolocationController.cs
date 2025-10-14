@@ -248,7 +248,7 @@ namespace Yourttoo.Api.Controllers
                 zone.Category = request.Category;
                 zone.PromotionArea = request.PromotionArea;
                 zone.PromotionAreaPriority = request.PromotionAreaPriority;
-                zone.UpdatedBy = request.CreatedBy ?? "System";
+                zone.UpdatedBy = request.UpdatedBy ?? "System";
                 zone.UpdatedAt = DateTime.UtcNow;
 
                 await _context.SaveChangesAsync();
