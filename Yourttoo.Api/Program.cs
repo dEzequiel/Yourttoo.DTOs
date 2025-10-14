@@ -44,22 +44,18 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddAutoMapper(cfg => cfg.AddMaps(typeof(Program)));
 
 const string CorsPolicy = "frontend";
+var corsOrigins = builder.Configuration.GetSection("Cors:Origins").Get<string[]>();
+
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy(CorsPolicy, p =>
-        p.WithOrigins(
-            "http://localhost:5173",                       // dev local
-            "https://web-deploy-bve1.onrender.com"  // cambia por tu dominio del frontend
-        )
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-    // si algún día usas cookies/token en cabecera y necesitas credenciales:
-    //.AllowCredentials()
+        p.WithOrigins(corsOrigins)
+         .AllowAnyMethod()
+         .AllowAnyHeader()
     );
 });
 
 var app = builder.Build();
-app.UseCors(CorsPolicy);
 
 
 // 🔸 Procesa los headers del proxy de Render (Host / Proto)
@@ -70,12 +66,12 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
                      | ForwardedHeaders.XForwardedHost
 });
 
-// Swagger (si quieres sólo en Dev, deja tu condición)
 app.UseSwagger();
 app.UseSwaggerUI();
 
 // Routing + endpoints
 app.UseRouting();
+app.UseCors(CorsPolicy);
 
 // 🔸 Health check simple para Render
 app.MapGet("/health", () => Results.Ok("OK"));
