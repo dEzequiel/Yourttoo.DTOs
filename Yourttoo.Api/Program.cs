@@ -59,6 +59,8 @@ builder.Services.AddCors(opt =>
 });
 
 var app = builder.Build();
+app.UseCors(CorsPolicy);
+
 
 // 🔸 Procesa los headers del proxy de Render (Host / Proto)
 app.UseForwardedHeaders(new ForwardedHeadersOptions
