@@ -29,4 +29,8 @@ RUN dotnet publish Yourttoo.Api.csproj -c $BUILD_CONFIGURATION -o /app/publish /
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+ENV ASPNETCORE_URLS=http://0.0.0.0:$PORT
+ENV ASPNETCORE_ENVIRONMENT=Production
+
 ENTRYPOINT ["dotnet", "Yourttoo.Api.dll"]
