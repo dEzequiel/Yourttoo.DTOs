@@ -12,6 +12,7 @@ RUN dotnet publish Yourttoo.Api.csproj -c Release -o /app/publish /p:UseAppHost=
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/publish .
+COPY Yourttoo.Api/dev.db /app/dev.db
 
 # 🔸 Sólo el puerto que Render asigna
 ENV ASPNETCORE_HTTP_PORTS=${PORT}
