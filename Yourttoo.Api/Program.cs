@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -7,49 +8,60 @@ using Yourttoo.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// 🔸 Forzar Kestrel a escuchar SÓLO en el puerto que Render expone
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseKestrel()
+    .UseUrls($"http://0.0.0.0:{port}"); // un único puerto, nada de 80/8081
 
-// Add services to the container.
+// DB
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DatabaseContext>(opt => opt.UseSqlite(connectionString));
 
 builder.Services.AddControllers();
 
-// Registrar servicios de autenticación
+// Servicios
 builder.Services.AddScoped<ISessionService, SessionService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Swagger (puedes dejarlo también en Production si te interesa)
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c => {
-    // 🔹 Añadir el header Accept-Language globalmente
+builder.Services.AddSwaggerGen(c =>
+{
     c.AddSecurityDefinition("Accept-Language", new OpenApiSecurityScheme
     {
         Name = "Accept-Language",
         Type = SecuritySchemeType.ApiKey,
         In = ParameterLocation.Header,
-        Description = "Idioma de la petición, por ejemplo 'es-ES' o 'en-US'"
+        Description = "Idioma de la petición, p. ej. 'es-ES' o 'en-US'"
     });
 
     c.OperationFilter<AcceptLanguageHeaderOperationFilter>();
+});
 
-});
-builder.Services.AddAutoMapper(cfg => {
-    cfg.AddMaps(typeof(Program));
-});
+builder.Services.AddAutoMapper(cfg => cfg.AddMaps(typeof(Program)));
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{;
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// 🔸 Procesa los headers del proxy de Render (Host / Proto)
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor
+                     | ForwardedHeaders.XForwardedProto
+                     | ForwardedHeaders.XForwardedHost
+});
 
+// Swagger (si quieres sólo en Dev, deja tu condición)
+app.UseSwagger();
+app.UseSwaggerUI();
 
+// Routing + endpoints
 app.UseRouting();
+
+// 🔸 Health check simple para Render
+app.MapGet("/health", () => Results.Ok("OK"));
 
 app.MapControllers();
 
