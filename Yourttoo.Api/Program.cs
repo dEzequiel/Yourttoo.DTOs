@@ -9,9 +9,9 @@ using Yourttoo.Api.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // 🔸 Forzar Kestrel a escuchar SÓLO en el puerto que Render expone
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-builder.WebHost.UseKestrel()
-    .UseUrls($"http://0.0.0.0:{port}"); // un único puerto, nada de 80/8081
+//var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+//builder.WebHost.UseKestrel()
+//   .UseUrls($"http://0.0.0.0:{port}"); // un único puerto, nada de 80/8081
 
 // DB
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
