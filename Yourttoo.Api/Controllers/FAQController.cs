@@ -35,25 +35,25 @@ namespace Yourttoo.Api.Controllers
 
     //     #region FAQ Section Endpoints
 
-    //     [HttpGet("sections")]
-    //     [ProducesResponseType(typeof(PaginatedApiResponse<FAQSectionDTO>), StatusCodes.Status200OK)]
-    //     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //     public async Task<IActionResult> GetFAQSections(
-    //         [FromQuery] QueryFAQSectionRequest request,
-    //         [FromQuery] int page = 1,
-    //         [FromQuery] int pageSize = 10)
-    //     {
-    //         _logger.LogInformation("FAQController --> GetFAQSections --> Start at {StartTime}", DateTime.UtcNow);
+        [HttpGet("sections")]
+        [ProducesResponseType(typeof(PaginatedApiResponse<FAQSectionDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetFAQSections(
+            [FromQuery] QueryFAQSectionRequest request,
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 10)
+        {
+            _logger.LogInformation("FAQController --> GetFAQSections --> Start at {StartTime}", DateTime.UtcNow);
 
-    //         var language = HttpContext.GetLanguage();
-    //         _logger.LogInformation("GetFAQSections: SearchTerm={SearchTerm}, Category={Category}, Type={Type}, Language={Language}, Page={Page}, PageSize={PageSize}",
-    //             request.SearchTerm, request.Category, request.Type, language, page, pageSize);
+            var language = HttpContext.GetLanguage();
+            _logger.LogInformation("GetFAQSections: SearchTerm={SearchTerm}, Category={Category}, Type={Type}, Language={Language}, Page={Page}, PageSize={PageSize}",
+                request.SearchTerm, request.Category, request.Type, language, page, pageSize);
 
-    //         try
-    //         {
-    //             var query = _context.FAQSection
-    //                 .Include(fs => fs.Contents)
-    //                 .AsNoTracking();
+            try
+            {
+                var query = _context.FAQSection
+                    .Include(fs => fs.Contents)
+                    .AsNoTracking();
 
     //             // Aplicar filtros
     //             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
@@ -88,20 +88,20 @@ namespace Yourttoo.Api.Controllers
     //         }
     //     }
 
-    //     [HttpGet("sections/{id}")]
-    //     [ProducesResponseType(typeof(FAQSectionDetailDTO), StatusCodes.Status200OK)]
-    //     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    //     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //     public async Task<IActionResult> GetFAQSectionById(Guid id)
-    //     {
-    //         _logger.LogInformation("FAQController --> GetFAQSectionById --> Start: {Id}", id);
+        [HttpGet("sections/{id}")]
+        [ProducesResponseType(typeof(FAQSectionDetailDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetFAQSectionById(Guid id)
+        {
+            _logger.LogInformation("FAQController --> GetFAQSectionById --> Start: {Id}", id);
 
-    //         try
-    //         {
-    //             var section = await _context.FAQSection
-    //                 .Include(fs => fs.Contents)
-    //                 .AsNoTracking()
-    //                 .FirstOrDefaultAsync(fs => fs.Id == id);
+            try
+            {
+                var section = await _context.FAQSection
+                    .Include(fs => fs.Contents)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(fs => fs.Id == id);
 
     //             if (section == null)
     //                 return NotFound(new ApiResponse<string>("Sección FAQ no encontrada"));
@@ -118,25 +118,25 @@ namespace Yourttoo.Api.Controllers
     //         }
     //     }
 
-    //     [HttpPost("sections")]
-    //     [ProducesResponseType(typeof(FAQSectionDTO), StatusCodes.Status201Created)]
-    //     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    //     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //     public async Task<IActionResult> CreateFAQSection([FromBody] CreateFAQSectionRequest request)
-    //     {
-    //         _logger.LogInformation("FAQController --> CreateFAQSection --> Start");
+        [HttpPost("sections")]
+        [ProducesResponseType(typeof(FAQSectionDTO), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> CreateFAQSection([FromBody] CreateFAQSectionRequest request)
+        {
+            _logger.LogInformation("FAQController --> CreateFAQSection --> Start");
 
-    //         try
-    //         {
-    //             var section = new FAQSection
-    //             {
-    //                 Id = Guid.NewGuid(),
-    //                 Title = request.Title,
-    //                 Category = request.Category,
-    //                 Type = request.Type,
-    //                 CreatedBy = "system", // TODO: Get from authentication context
-    //                 CreatedAt = DateTime.UtcNow
-    //             };
+            try
+            {
+                var section = new FAQSection
+                {
+                    Id = Guid.NewGuid(),
+                    Title = request.Title,
+                    Category = request.Category,
+                    Type = request.Type,
+                    CreatedBy = "system", // TODO: Get from authentication context
+                    CreatedAt = DateTime.UtcNow
+                };
 
     //             _context.FAQSection.Add(section);
     //             await _context.SaveChangesAsync();
@@ -153,22 +153,22 @@ namespace Yourttoo.Api.Controllers
     //         }
     //     }
 
-    //     [HttpPut("sections/{id}")]
-    //     [ProducesResponseType(typeof(FAQSectionDTO), StatusCodes.Status200OK)]
-    //     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    //     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    //     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //     public async Task<IActionResult> UpdateFAQSection(Guid id, [FromBody] UpdateFAQSectionRequest request)
-    //     {
-    //         _logger.LogInformation("FAQController --> UpdateFAQSection --> Start: {Id}", id);
+        [HttpPut("sections/{id}")]
+        [ProducesResponseType(typeof(FAQSectionDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateFAQSection(Guid id, [FromBody] UpdateFAQSectionRequest request)
+        {
+            _logger.LogInformation("FAQController --> UpdateFAQSection --> Start: {Id}", id);
 
-    //         try
-    //         {
-    //             var section = await _context.FAQSection.FindAsync(id);
-    //             if (section == null)
-    //             {
-    //                 return NotFound(new ApiResponse<string>("Sección FAQ no encontrada"));
-    //             }
+            try
+            {
+                var section = await _context.FAQSection.FindAsync(id);
+                if (section == null)
+                {
+                    return NotFound(new ApiResponse<string>("Sección FAQ no encontrada"));
+                }
 
     //             section.Title = request.Title;
     //             section.Category = request.Category;
@@ -190,20 +190,20 @@ namespace Yourttoo.Api.Controllers
     //         }
     //     }
 
-    //     [HttpDelete("sections/{id}")]
-    //     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    //     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    //     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    //     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //     public async Task<IActionResult> DeleteFAQSection(Guid id)
-    //     {
-    //         _logger.LogInformation("FAQController --> DeleteFAQSection --> Start: {Id}", id);
+        [HttpDelete("sections/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteFAQSection(Guid id)
+        {
+            _logger.LogInformation("FAQController --> DeleteFAQSection --> Start: {Id}", id);
 
-    //         try
-    //         {
-    //             var section = await _context.FAQSection
-    //                 .Include(fs => fs.Contents)
-    //                 .FirstOrDefaultAsync(fs => fs.Id == id);
+            try
+            {
+                var section = await _context.FAQSection
+                    .Include(fs => fs.Contents)
+                    .FirstOrDefaultAsync(fs => fs.Id == id);
 
     //             if (section == null)
     //             {
@@ -230,19 +230,19 @@ namespace Yourttoo.Api.Controllers
     //         }
     //     }
 
-    //     [HttpPost("sections/bulk")]
-    //     [ProducesResponseType(typeof(List<FAQSectionDTO>), StatusCodes.Status201Created)]
-    //     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    //     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //     public async Task<IActionResult> BulkCreateFAQSections([FromBody] BulkCreateFAQSectionRequest request)
-    //     {
-    //         _logger.LogInformation("FAQController --> BulkCreateFAQSections --> Start");
+        [HttpPost("sections/bulk")]
+        [ProducesResponseType(typeof(List<FAQSectionDTO>), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> BulkCreateFAQSections([FromBody] BulkCreateFAQSectionRequest request)
+        {
+            _logger.LogInformation("FAQController --> BulkCreateFAQSections --> Start");
 
-    //         try
-    //         {
-    //             var sections = new List<FAQSection>();
-    //             var createdBy = "system"; // TODO: Get from authentication context
-    //             var createdAt = DateTime.UtcNow;
+            try
+            {
+                var sections = new List<FAQSection>();
+                var createdBy = "system"; // TODO: Get from authentication context
+                var createdAt = DateTime.UtcNow;
 
     //             foreach (var sectionRequest in request.Sections)
     //             {
@@ -277,25 +277,25 @@ namespace Yourttoo.Api.Controllers
 
     //     #region FAQ Content Endpoints
 
-    //     [HttpGet("contents")]
-    //     [ProducesResponseType(typeof(PaginatedApiResponse<FAQContentDTO>), StatusCodes.Status200OK)]
-    //     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //     public async Task<IActionResult> GetFAQContents(
-    //         [FromQuery] QueryFAQContentRequest request,
-    //         [FromQuery] int page = 1,
-    //         [FromQuery] int pageSize = 10)
-    //     {
-    //         _logger.LogInformation("FAQController --> GetFAQContents --> Start at {StartTime}", DateTime.UtcNow);
+        [HttpGet("contents")]
+        [ProducesResponseType(typeof(PaginatedApiResponse<FAQContentDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetFAQContents(
+            [FromQuery] QueryFAQContentRequest request,
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 10)
+        {
+            _logger.LogInformation("FAQController --> GetFAQContents --> Start at {StartTime}", DateTime.UtcNow);
 
-    //         var language = HttpContext.GetLanguage();
-    //         _logger.LogInformation("GetFAQContents: SearchTerm={SearchTerm}, Status={Status}, Slug={Slug}, FAQSectionId={FAQSectionId}, Language={Language}, Page={Page}, PageSize={PageSize}",
-    //             request.SearchTerm, request.Status, request.Slug, request.FAQSectionId, language, page, pageSize);
+            var language = HttpContext.GetLanguage();
+            _logger.LogInformation("GetFAQContents: SearchTerm={SearchTerm}, Status={Status}, Slug={Slug}, FAQSectionId={FAQSectionId}, Language={Language}, Page={Page}, PageSize={PageSize}",
+                request.SearchTerm, request.Status, request.Slug, request.FAQSectionId, language, page, pageSize);
 
-    //         try
-    //         {
-    //             var query = _context.FAQContent
-    //                 .Include(fc => fc.FAQSection)
-    //                 .AsNoTracking();
+            try
+            {
+                var query = _context.FAQContent
+                    .Include(fc => fc.FAQSection)
+                    .AsNoTracking();
 
     //             // Aplicar filtros
     //             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
@@ -334,20 +334,20 @@ namespace Yourttoo.Api.Controllers
     //         }
     //     }
 
-    //     [HttpGet("contents/{id}")]
-    //     [ProducesResponseType(typeof(FAQContentDetailDTO), StatusCodes.Status200OK)]
-    //     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    //     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //     public async Task<IActionResult> GetFAQContentById(Guid id)
-    //     {
-    //         _logger.LogInformation("FAQController --> GetFAQContentById --> Start: {Id}", id);
+        [HttpGet("contents/{id}")]
+        [ProducesResponseType(typeof(FAQContentDetailDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetFAQContentById(Guid id)
+        {
+            _logger.LogInformation("FAQController --> GetFAQContentById --> Start: {Id}", id);
 
-    //         try
-    //         {
-    //             var content = await _context.FAQContent
-    //                 .Include(fc => fc.FAQSection)
-    //                 .AsNoTracking()
-    //                 .FirstOrDefaultAsync(fc => fc.Id == id);
+            try
+            {
+                var content = await _context.FAQContent
+                    .Include(fc => fc.FAQSection)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(fc => fc.Id == id);
 
     //             if (content == null)
     //             {
@@ -366,19 +366,19 @@ namespace Yourttoo.Api.Controllers
     //         }
     //     }
 
-    //     [HttpPost("contents")]
-    //     [ProducesResponseType(typeof(FAQContentDTO), StatusCodes.Status201Created)]
-    //     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    //     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //     public async Task<IActionResult> CreateFAQContent([FromBody] CreateFAQContentRequest request)
-    //     {
-    //         _logger.LogInformation("FAQController --> CreateFAQContent --> Start");
+        [HttpPost("contents")]
+        [ProducesResponseType(typeof(FAQContentDTO), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> CreateFAQContent([FromBody] CreateFAQContentRequest request)
+        {
+            _logger.LogInformation("FAQController --> CreateFAQContent --> Start");
 
-    //         try
-    //         {
-    //             // Verificar que la sección existe
-    //             var sectionExists = await _context.FAQSection
-    //                 .AnyAsync(fs => fs.Id == request.FAQSectionId);
+            try
+            {
+                // Verificar que la sección existe
+                var sectionExists = await _context.FAQSection
+                    .AnyAsync(fs => fs.Id == request.FAQSectionId);
 
     //             if (!sectionExists)
     //             {
@@ -412,22 +412,22 @@ namespace Yourttoo.Api.Controllers
     //         }
     //     }
 
-    //     [HttpPut("contents/{id}")]
-    //     [ProducesResponseType(typeof(FAQContentDTO), StatusCodes.Status200OK)]
-    //     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    //     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    //     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //     public async Task<IActionResult> UpdateFAQContent(Guid id, [FromBody] UpdateFAQContentRequest request)
-    //     {
-    //         _logger.LogInformation("FAQController --> UpdateFAQContent --> Start: {Id}", id);
+        [HttpPut("contents/{id}")]
+        [ProducesResponseType(typeof(FAQContentDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateFAQContent(Guid id, [FromBody] UpdateFAQContentRequest request)
+        {
+            _logger.LogInformation("FAQController --> UpdateFAQContent --> Start: {Id}", id);
 
-    //         try
-    //         {
-    //             var content = await _context.FAQContent.FindAsync(id);
-    //             if (content == null)
-    //             {
-    //                 return NotFound(new ApiResponse<string>("Contenido FAQ no encontrado"));
-    //             }
+            try
+            {
+                var content = await _context.FAQContent.FindAsync(id);
+                if (content == null)
+                {
+                    return NotFound(new ApiResponse<string>("Contenido FAQ no encontrado"));
+                }
 
     //             // Verificar que la sección existe
     //             var sectionExists = await _context.FAQSection
@@ -460,21 +460,21 @@ namespace Yourttoo.Api.Controllers
     //         }
     //     }
 
-    //     [HttpDelete("contents/{id}")]
-    //     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    //     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    //     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //     public async Task<IActionResult> DeleteFAQContent(Guid id)
-    //     {
-    //         _logger.LogInformation("FAQController --> DeleteFAQContent --> Start: {Id}", id);
+        [HttpDelete("contents/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteFAQContent(Guid id)
+        {
+            _logger.LogInformation("FAQController --> DeleteFAQContent --> Start: {Id}", id);
 
-    //         try
-    //         {
-    //             var content = await _context.FAQContent.FindAsync(id);
-    //             if (content == null)
-    //             {
-    //                 return NotFound(new ApiResponse<string>("Contenido FAQ no encontrado"));
-    //             }
+            try
+            {
+                var content = await _context.FAQContent.FindAsync(id);
+                if (content == null)
+                {
+                    return NotFound(new ApiResponse<string>("Contenido FAQ no encontrado"));
+                }
 
     //             _context.FAQContent.Remove(content);
     //             await _context.SaveChangesAsync();
@@ -490,19 +490,19 @@ namespace Yourttoo.Api.Controllers
     //         }
     //     }
 
-    //     [HttpPost("contents/bulk")]
-    //     [ProducesResponseType(typeof(List<FAQContentDTO>), StatusCodes.Status201Created)]
-    //     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    //     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //     public async Task<IActionResult> BulkCreateFAQContents([FromBody] BulkCreateFAQContentRequest request)
-    //     {
-    //         _logger.LogInformation("FAQController --> BulkCreateFAQContents --> Start");
+        [HttpPost("contents/bulk")]
+        [ProducesResponseType(typeof(List<FAQContentDTO>), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> BulkCreateFAQContents([FromBody] BulkCreateFAQContentRequest request)
+        {
+            _logger.LogInformation("FAQController --> BulkCreateFAQContents --> Start");
 
-    //         try
-    //         {
-    //             var contents = new List<FAQContent>();
-    //             var createdBy = "system"; // TODO: Get from authentication context
-    //             var createdAt = DateTime.UtcNow;
+            try
+            {
+                var contents = new List<FAQContent>();
+                var createdBy = "system"; // TODO: Get from authentication context
+                var createdAt = DateTime.UtcNow;
 
     //             // Verificar que todas las secciones existen
     //             var sectionIds = request.Contents.Select(c => c.FAQSectionId).Distinct().ToList();

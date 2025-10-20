@@ -18,7 +18,6 @@ namespace Yourttoo.Api.Services
         {
             _context = context;
             _logger = logger;
-            _mapper = mapper;
         }
 
         public async Task<UserDTO?> GetUserByEmailAsync(string email)
@@ -38,47 +37,6 @@ namespace Yourttoo.Api.Services
             {
                 _logger.LogError(ex, "Error getting user by email: {Email}", email);
                 return null;
-            }
-        }
-
-        public async Task<UserDTO?> GetUserByIdAsync(Guid id)
-        {
-            try
-            {
-                var user = await _context.Users.FindAsync(id);
-                if (user == null)
-                {
-                    _logger.LogWarning("User not found for id: {Id}", id);
-                    return null;
-                }
-
-                return _mapper.Map<User, UserDTO>(user);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error getting user by id: {Id}", id);
-                return null;
-            }
-        }
-
-        public async Task<bool> ValidateUserCredentialsAsync(string username, string password)
-        {
-            try
-            {
-                var user = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Username == username && u.IsActive);
-
-                if (user == null)
-                    return false;
-
-                // TODO: Implementar hash de contraseña real
-                // Por ahora, validación básica para demo
-                return user.PasswordHash == HashPassword(password);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error validating user credentials: {Username}", username);
-                return false;
             }
         }
 
@@ -135,6 +93,38 @@ namespace Yourttoo.Api.Services
                 _logger.LogError(ex, "Error creating user: {Email}", email);
                 return null;
             }
+        }
+
+        private UserDTO MapUserToDTO(User user)
+        {
+            return new UserDTO
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Avatar = user.Avatar,
+                IsActive = user.IsActive,
+                CreatedAt = user.CreatedAt,
+                Roles = user.UserRoles
+                    .Where(ur => ur.IsActive && ur.Role.IsActive)
+                    .Select(ur => new RoleDTO
+                    {
+                        Id = ur.Role.Id,
+                        Name = ur.Role.Name,
+                        Description = ur.Role.Description,
+                        IsActive = ur.Role.IsActive
+                    })
+                    .ToList()
+            };
+        }
+
+        private string HashPassword(string password)
+        {
+            using var sha256 = SHA256.Create();
+            var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+            return Convert.ToBase64String(hashedBytes);
         }
     }
 }

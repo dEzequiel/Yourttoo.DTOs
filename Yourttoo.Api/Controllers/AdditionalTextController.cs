@@ -182,25 +182,25 @@ namespace Yourttoo.Api.Controllers
 
         // }
 
-        // [HttpPut("{id}")]
-        // [ProducesResponseType(typeof(AdditionalTextDTO), StatusCodes.Status200OK)]
-        // [ProducesResponseType(StatusCodes.Status404NotFound)]
-        // [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        // public async Task<IActionResult> UpdateAdditionalText(Guid id, [FromBody] UpdateAdditionalTextRequest request)
-        // {
-        //     _logger.LogInformation("AdditionalTextController --> UpdateAdditionalText --> Start: {Id}", id);
-        //     try
-        //     {
-        //         if (id != request.Id)
-        //         {
-        //             return BadRequest(new ApiResponse<string>("El ID de la URL no coincide con el ID del request"));
-        //         }
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(AdditionalTextDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateAdditionalText(Guid id, [FromBody] UpdateAdditionalTextRequest request)
+        {
+            _logger.LogInformation("AdditionalTextController --> UpdateAdditionalText --> Start: {Id}", id);
+            try
+            {
+                if (id != request.Id)
+                {
+                    return BadRequest(new ApiResponse<string>("El ID de la URL no coincide con el ID del request"));
+                }
 
-        //         var additionalText = await _context.AdditionalText.FindAsync(id);
-        //         if (additionalText == null)
-        //         {
-        //             return NotFound(new ApiResponse<string>("Additional text not found"));
-        //         }
+                var additionalText = await _context.AdditionalText.FindAsync(id);
+                if (additionalText == null)
+                {
+                    return NotFound(new ApiResponse<string>("Additional text not found"));
+                }
 
         //         additionalText.Title = request.Title;
         //         additionalText.Content = request.Content;
