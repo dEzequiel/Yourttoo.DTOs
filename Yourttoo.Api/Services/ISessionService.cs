@@ -13,5 +13,6 @@ namespace Yourttoo.Api.Services
         Task<SessionWithUserDTO?> GetSessionWithUserAsync(string sessionId);
         Task<SessionDTO?> GetSessionByUserIdAsync(string userId);
         Task CleanupExpiredSessionsAsync();
+        Task<UserDTO?> GetUserBySessionIdAsync(string sessionId);
     }
 }

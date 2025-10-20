@@ -252,6 +252,24 @@ namespace Yourttoo.Api.Controllers
             }
         }
 
+        [HttpGet("get-user-by-session-id/{sessionId}")]
+        [ProducesResponseType(typeof(UserDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetUserBySessionId(string sessionId) {
+            _logger.LogInformation("AuthController --> GetUserBySessionId --> Start for session: {SessionId}", sessionId);
+            try {
+                var user = await _sessionService.GetUserBySessionIdAsync(sessionId);
+                if (user == null) {
+                    return NotFound(new ApiResponse<string>("Usuario no encontrado"));
+                }
+                return Ok(new ApiResponse<UserDTO>(user));
+            } catch (Exception ex) {
+                _logger.LogError(ex, "Error getting user by session id: {SessionId}", sessionId);
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse<string>("Error interno del servidor"));
+            }
+        }
+
         [HttpPost("cleanup")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

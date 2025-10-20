@@ -102,6 +102,23 @@ namespace Yourttoo.Api.Services
             }
         }
 
+        public async Task<UserDTO?> GetUserByIdAsync(string userId)
+        {
+            try {
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == Guid.Parse(userId) && u.IsActive);
+                if (user == null) {
+                    _logger.LogWarning("User not found: {UserId}", userId);
+                    return null;
+                }
+                return MapUserToDTO(user);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting user by id: {UserId}", userId);
+                return null;
+            }
+        }
+
         public async Task<UserDTO?> CreateUserAsync(string username, string email, string password, string firstName, string lastName, string? avatar = null)
         {
             try

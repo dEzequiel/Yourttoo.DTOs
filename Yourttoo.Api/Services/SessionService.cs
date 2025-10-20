@@ -281,6 +281,17 @@ namespace Yourttoo.Api.Services
             }
         }
 
+        public async Task<UserDTO?> GetUserBySessionIdAsync(string sessionId)
+        {
+            try {
+                return await _userService.GetUserByIdAsync(sessionId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting user by session id: {SessionId}", sessionId);
+                return null;
+            }
+        }   
         private string GenerateSessionId()
         {
             using var rng = RandomNumberGenerator.Create();
