@@ -20,7 +20,6 @@ builder.Services.AddDbContext<DatabaseContext>(opt => opt.UseSqlite(connectionSt
 builder.Services.AddControllers();
 
 // Servicios
-builder.Services.AddScoped<ISessionService, SessionService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Logging.ClearProviders();

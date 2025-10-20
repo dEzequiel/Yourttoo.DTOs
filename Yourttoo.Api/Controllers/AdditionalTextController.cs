@@ -189,13 +189,16 @@ namespace Yourttoo.Api.Controllers
         public async Task<IActionResult> UpdateAdditionalText(Guid id, [FromBody] UpdateAdditionalTextRequest request)
         {
             _logger.LogInformation("AdditionalTextController --> UpdateAdditionalText --> Start: {Id}", id);
-            try {
-                if (id != request.Id) {
+            try
+            {
+                if (id != request.Id)
+                {
                     return BadRequest(new ApiResponse<string>("El ID de la URL no coincide con el ID del request"));
                 }
 
                 var additionalText = await _context.AdditionalText.FindAsync(id);
-                if (additionalText == null) {
+                if (additionalText == null)
+                {
                     return NotFound(new ApiResponse<string>("Additional text not found"));
                 }
 

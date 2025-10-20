@@ -8,7 +8,7 @@ namespace Yourttoo.Api.Mappings
 {
     public class TaggingProfile : Profile
     {
-        public TaggingProfile() 
+        public TaggingProfile()
         {
             CreateMap<TagCategory, TagCategoryDTO>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.FirstOrDefault() ?? new MultiLanguageText()))
