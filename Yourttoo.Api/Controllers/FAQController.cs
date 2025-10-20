@@ -44,11 +44,11 @@ namespace Yourttoo.Api.Controllers
             [FromQuery] int pageSize = 10)
         {
             _logger.LogInformation("FAQController --> GetFAQSections --> Start at {StartTime}", DateTime.UtcNow);
-            
+
             var language = HttpContext.GetLanguage();
-            _logger.LogInformation("GetFAQSections: SearchTerm={SearchTerm}, Category={Category}, Type={Type}, Language={Language}, Page={Page}, PageSize={PageSize}", 
+            _logger.LogInformation("GetFAQSections: SearchTerm={SearchTerm}, Category={Category}, Type={Type}, Language={Language}, Page={Page}, PageSize={PageSize}",
                 request.SearchTerm, request.Category, request.Type, language, page, pageSize);
-            
+
             try
             {
                 var query = _context.FAQSection
@@ -95,7 +95,7 @@ namespace Yourttoo.Api.Controllers
         public async Task<IActionResult> GetFAQSectionById(Guid id)
         {
             _logger.LogInformation("FAQController --> GetFAQSectionById --> Start: {Id}", id);
-            
+
             try
             {
                 var section = await _context.FAQSection
@@ -125,7 +125,7 @@ namespace Yourttoo.Api.Controllers
         public async Task<IActionResult> CreateFAQSection([FromBody] CreateFAQSectionRequest request)
         {
             _logger.LogInformation("FAQController --> CreateFAQSection --> Start");
-            
+
             try
             {
                 var section = new FAQSection
@@ -161,7 +161,7 @@ namespace Yourttoo.Api.Controllers
         public async Task<IActionResult> UpdateFAQSection(Guid id, [FromBody] UpdateFAQSectionRequest request)
         {
             _logger.LogInformation("FAQController --> UpdateFAQSection --> Start: {Id}", id);
-            
+
             try
             {
                 var section = await _context.FAQSection.FindAsync(id);
@@ -198,7 +198,7 @@ namespace Yourttoo.Api.Controllers
         public async Task<IActionResult> DeleteFAQSection(Guid id)
         {
             _logger.LogInformation("FAQController --> DeleteFAQSection --> Start: {Id}", id);
-            
+
             try
             {
                 var section = await _context.FAQSection
@@ -237,7 +237,7 @@ namespace Yourttoo.Api.Controllers
         public async Task<IActionResult> BulkCreateFAQSections([FromBody] BulkCreateFAQSectionRequest request)
         {
             _logger.LogInformation("FAQController --> BulkCreateFAQSections --> Start");
-            
+
             try
             {
                 var sections = new List<FAQSection>();
@@ -286,11 +286,11 @@ namespace Yourttoo.Api.Controllers
             [FromQuery] int pageSize = 10)
         {
             _logger.LogInformation("FAQController --> GetFAQContents --> Start at {StartTime}", DateTime.UtcNow);
-            
+
             var language = HttpContext.GetLanguage();
-            _logger.LogInformation("GetFAQContents: SearchTerm={SearchTerm}, Status={Status}, Slug={Slug}, FAQSectionId={FAQSectionId}, Language={Language}, Page={Page}, PageSize={PageSize}", 
+            _logger.LogInformation("GetFAQContents: SearchTerm={SearchTerm}, Status={Status}, Slug={Slug}, FAQSectionId={FAQSectionId}, Language={Language}, Page={Page}, PageSize={PageSize}",
                 request.SearchTerm, request.Status, request.Slug, request.FAQSectionId, language, page, pageSize);
-            
+
             try
             {
                 var query = _context.FAQContent
@@ -341,7 +341,7 @@ namespace Yourttoo.Api.Controllers
         public async Task<IActionResult> GetFAQContentById(Guid id)
         {
             _logger.LogInformation("FAQController --> GetFAQContentById --> Start: {Id}", id);
-            
+
             try
             {
                 var content = await _context.FAQContent
@@ -373,7 +373,7 @@ namespace Yourttoo.Api.Controllers
         public async Task<IActionResult> CreateFAQContent([FromBody] CreateFAQContentRequest request)
         {
             _logger.LogInformation("FAQController --> CreateFAQContent --> Start");
-            
+
             try
             {
                 // Verificar que la sección existe
@@ -420,7 +420,7 @@ namespace Yourttoo.Api.Controllers
         public async Task<IActionResult> UpdateFAQContent(Guid id, [FromBody] UpdateFAQContentRequest request)
         {
             _logger.LogInformation("FAQController --> UpdateFAQContent --> Start: {Id}", id);
-            
+
             try
             {
                 var content = await _context.FAQContent.FindAsync(id);
@@ -467,7 +467,7 @@ namespace Yourttoo.Api.Controllers
         public async Task<IActionResult> DeleteFAQContent(Guid id)
         {
             _logger.LogInformation("FAQController --> DeleteFAQContent --> Start: {Id}", id);
-            
+
             try
             {
                 var content = await _context.FAQContent.FindAsync(id);
@@ -497,7 +497,7 @@ namespace Yourttoo.Api.Controllers
         public async Task<IActionResult> BulkCreateFAQContents([FromBody] BulkCreateFAQContentRequest request)
         {
             _logger.LogInformation("FAQController --> BulkCreateFAQContents --> Start");
-            
+
             try
             {
                 var contents = new List<FAQContent>();

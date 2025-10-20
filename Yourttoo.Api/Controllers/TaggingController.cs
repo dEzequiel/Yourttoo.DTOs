@@ -103,15 +103,15 @@ namespace Yourttoo.Api.Controllers
             [FromQuery] int pageSize = 10)
         {
             _logger.LogInformation($"TagCategoryController --> GetTagCategories --> Start at {DateTime.UtcNow}");
-            
+
             // Extraer idioma del header Accept-Language
             var acceptLanguage = Request.Headers["Accept-Language"].FirstOrDefault();
             var language = LanguageHelper.ExtractLanguageFromAcceptLanguage(acceptLanguage);
-            
+
             // Log de parámetros de la request
-            _logger.LogInformation("Request Parameters: SearchTerm={SearchTerm}, Code={Code}, IsFilterable={IsFilterable}, ExtractedLanguage={Language}, Page={Page}, PageSize={PageSize}", 
+            _logger.LogInformation("Request Parameters: SearchTerm={SearchTerm}, Code={Code}, IsFilterable={IsFilterable}, ExtractedLanguage={Language}, Page={Page}, PageSize={PageSize}",
                 request.SearchTerm, request.Code, request.IsFilterable, language, page, pageSize);
-            
+
             try
             {
                 // Usar parámetros de paginación directos
@@ -160,7 +160,7 @@ namespace Yourttoo.Api.Controllers
 
                 // Mapeo con selección de idioma usando helper reutilizable
                 var categoryDtos = MultiLanguageMappingHelper.MapToTagCategoryDtos(categories, language);
-                
+
                 var pagination = new PaginatedParameters(page, pageSize, totalCount);
 
                 _logger.LogInformation("TagCategoryController --> GetTagCategories --> End at {EndTime}", DateTime.UtcNow);
@@ -181,7 +181,7 @@ namespace Yourttoo.Api.Controllers
         public async Task<IActionResult> GetTagCategoryById(Guid id)
         {
             _logger.LogInformation("TagCategoryController --> GetTagCategoryById --> Start: {Id}", id);
-            
+
             try
             {
                 var category = await _context.TagCategory
@@ -449,22 +449,22 @@ namespace Yourttoo.Api.Controllers
             _mapper = mapper;
             _context = context;
         }
-        
+
         [HttpGet]
         [ProducesResponseType(typeof(PaginatedApiResponse<TagDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetTags([FromQuery] QueryTagsRequest request, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
             _logger.LogInformation($"TagController --> GetTags --> Start at {DateTime.UtcNow}");
-            
+
             // Extraer idioma del header Accept-Language
             var acceptLanguage = Request.Headers["Accept-Language"].FirstOrDefault();
             var language = LanguageHelper.ExtractLanguageFromAcceptLanguage(acceptLanguage);
-            
+
             // Log de parámetros de la request
-            _logger.LogInformation("Request Parameters: SearchTerm={SearchTerm}, Code={Code}, Status={Status}, Slug={Slug}, CategoryId={CategoryId}, ExtractedLanguage={Language}, Page={Page}, PageSize={PageSize}", 
+            _logger.LogInformation("Request Parameters: SearchTerm={SearchTerm}, Code={Code}, Status={Status}, Slug={Slug}, CategoryId={CategoryId}, ExtractedLanguage={Language}, Page={Page}, PageSize={PageSize}",
                 request.SearchTerm, request.Code, request.Status, request.Slug, request.CategoryId, language, page, pageSize);
-            
+
             try
             {
                 // Construcción de la consulta base con navegación de Categorías
@@ -526,7 +526,7 @@ namespace Yourttoo.Api.Controllers
 
                 // Mapeo con selección de idioma usando helper reutilizable
                 var tagDtos = MultiLanguageMappingHelper.MapToTagDtos(tags, language);
-                
+
                 var pagination = new PaginatedParameters(page, pageSize, totalCount);
 
                 _logger.LogInformation("TagController --> GetTags --> End at {EndTime}", DateTime.UtcNow);
@@ -570,7 +570,7 @@ namespace Yourttoo.Api.Controllers
                     new ApiResponse<string>("Error interno del servidor"));
             }
         }
-    
+
         [HttpPost]
         [ProducesResponseType(typeof(TagDTO), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -630,11 +630,12 @@ namespace Yourttoo.Api.Controllers
         public async Task<IActionResult> UpdateTag(Guid id, [FromBody] UpdateTagRequest request)
         {
             _logger.LogInformation($"TagController --> UpdateTag --> Start: {id}");
-            try {
+            try
+            {
                 var tag = await _context.Tags
                     .Include(t => t.Categories)
                     .FirstOrDefaultAsync(t => t.Id == id);
-                
+
                 if (tag == null)
                 {
                     return NotFound(new ApiResponse<string>("Tag no encontrada"));
@@ -712,7 +713,7 @@ namespace Yourttoo.Api.Controllers
         public async Task<IActionResult> BulkCreateTags([FromBody] BulkCreateTagRequest request)
         {
             _logger.LogInformation($"TagController --> BulkCreateTags --> Start: {request.Tags.Count} tags");
-            
+
             if (!request.Tags.Any())
             {
                 return BadRequest(new ApiResponse<string>("La lista de tags no puede estar vacía"));

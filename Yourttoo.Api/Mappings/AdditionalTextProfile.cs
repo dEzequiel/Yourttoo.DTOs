@@ -7,7 +7,8 @@ namespace Yourttoo.Api.Mappings
 {
     public class AdditionalTextProfile : Profile
     {
-        public AdditionalTextProfile() {
+        public AdditionalTextProfile()
+        {
             CreateMap<AdditionalText, AdditionalTextDTO>()
                 .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title.FirstOrDefault() ?? new MultiLanguageText()))
                 .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Content!.FirstOrDefault() ?? new MultiLanguageText()));
