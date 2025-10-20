@@ -7,6 +7,7 @@ namespace Yourttoo.Api.Services
     {
         Task<UserDTO?> GetUserByUsernameAsync(string username);
         Task<UserDTO?> GetUserByEmailAsync(string email);
+        Task<UserDTO?> GetUserByIdAsync(string userId);
         Task<UserDTO?> GetUserWithRolesAsync(Guid userId);
         Task<bool> ValidateUserCredentialsAsync(string username, string password);
         Task<UserDTO?> CreateUserAsync(string username, string email, string password, string firstName, string lastName, string? avatar = null);
