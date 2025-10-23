@@ -276,7 +276,20 @@ namespace Yourttoo.Api.Mappings
                 .ForMember(dest => dest.UpdatedBy, opt => opt.Ignore())
                 .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore());
 
-            CreateMap<Country, CountryDetailDTO>()
+            #endregion
+        
+        
+            #region Region Mappings
+
+            CreateMap<Region, RegionDTO>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom((src, dest, destMember, context) =>
+                    src.Name.GetText(context.Items["Language"] as string)))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom((src, dest, destMember, context) =>
+                    src.Description.GetText(context.Items["Language"] as string)))
+                .ForMember(dest => dest.Language, opt => opt.MapFrom((src, dest, destMember, context) =>
+                    context.Items["Language"] as string ?? string.Empty));
+
+            CreateMap<Region, RegionDetailDTO>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
 
