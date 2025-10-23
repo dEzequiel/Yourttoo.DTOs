@@ -860,7 +860,7 @@ namespace Yourttoo.Api.Migrations
 
                             b1.ToTable("AdditionalText");
 
-                            b1.ToJson("Content");
+                            b1.ToJson("Title");
 
                             b1.WithOwner()
                                 .HasForeignKey("AdditionalTextId");
@@ -901,9 +901,11 @@ namespace Yourttoo.Api.Migrations
 
                             b1.HasKey("AdditionalTextId");
 
-                            b1.ToTable("AdditionalText");
+                                    b2.ToTable("AdditionalText");
 
-                            b1.ToJson("Title");
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextAdditionalTextId");
+                                });
 
                             b1.WithOwner()
                                 .HasForeignKey("AdditionalTextId");
@@ -1543,7 +1545,7 @@ namespace Yourttoo.Api.Migrations
 
                             b1.ToTable("Zones");
 
-                            b1.ToJson("Description");
+                            b1.ToJson("Name");
 
                             b1.WithOwner()
                                 .HasForeignKey("ZoneId");
@@ -1584,9 +1586,11 @@ namespace Yourttoo.Api.Migrations
 
                             b1.HasKey("ZoneId");
 
-                            b1.ToTable("Zones");
+                                    b2.ToTable("Zones");
 
-                            b1.ToJson("Name");
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextZoneId");
+                                });
 
                             b1.WithOwner()
                                 .HasForeignKey("ZoneId");
@@ -1715,9 +1719,11 @@ namespace Yourttoo.Api.Migrations
                             b1.Navigation("Texts");
                         });
 
-                    b.Navigation("Description");
+                    b.Navigation("Description")
+                        .IsRequired();
 
-                    b.Navigation("Name");
+                    b.Navigation("Name")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Yourttoo.DTOs.Models.FrequentlyAskedQuestions.FAQSection", b =>
