@@ -2,19 +2,18 @@
 
 namespace Yourttoo.DTOs.DTOs.Tagging.Tag
 {
-    public class TagDTO : IDataTransferObject
+    public class TagDTO : DataTransferObject
     {
-        public Guid Id { get; set; } = Guid.Empty;
-        public string Code { get; set; } = string.Empty;
-        public MultiLanguageText Name { get; set; } = new();
-        public MultiLanguageText Description { get; set; } = new();
-        public string Slug { get; set; } = string.Empty;
-        public MultiLanguageText Label { get; set; } = new();
-        public string Status { get; set; } = string.Empty;
-        public string Icon { get; set; } = string.Empty;
-        public List<Guid> Categories { get; set; } = new();
-        public TagDTO() { }
+        public string? Key { get; set; }
+        public string? Value { get; set; }
+        public string? Category { get; set; }
+        public string? SubCategory { get; set; }
+        public string Type { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public string? IconUrl { get; set; }
+        public string? ImageUrl { get; set; }
+        public string Status { get; set; } 
+        public string Language { get; set; } 
     }
-
-    public record TagReferenceDTO(MultiLanguageText Name);
 }

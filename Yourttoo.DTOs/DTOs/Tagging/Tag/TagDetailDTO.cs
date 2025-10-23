@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Yourttoo.DTOs.Common;
+﻿using Yourttoo.DTOs.Common;
 
 namespace Yourttoo.DTOs.DTOs.Tagging.Tag
 {
-    public class TagDetailDTO : IDataTransferObject
+    public class TagDetailDTO : DataTransferObject
     {
-        public Guid Id { get; set; } = Guid.Empty;
-        public string Code { get; set; } = string.Empty;
-        public MultiLanguageText Name { get; set; } = new();
-        public MultiLanguageText Description { get; set; } = new();
-        public string Slug { get; set; } = string.Empty;
-        public MultiLanguageText Label { get; set; } = new();
-        public string Status { get; set; } = string.Empty;
-        public string Icon { get; set; } = string.Empty;
-        public List<Guid> Categories { get; set; } = new();
-        public TagDetailDTO() { }
+        public string? Key { get; set; }
+        public string? Value { get; set; }
+        public string? Category { get; set; }
+        public string? SubCategory { get; set; }
+        public string Type { get; set; }
+        public MultiLanguageText? Name { get; set; }
+        public MultiLanguageText? Description { get; set; }
+        public string? IconUrl { get; set; }
+        public string? ImageUrl { get; set; }
+        public string Status { get; set; } 
+        public string Language { get; set; } 
     }
 }
