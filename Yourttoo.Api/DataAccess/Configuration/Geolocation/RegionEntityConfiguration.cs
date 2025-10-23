@@ -14,18 +14,24 @@ namespace Yourttoo.Api.DataAccess.Configuration.Geolocation
             builder.HasKey(r => r.Id);
 
             // Configuración de propiedades multiidioma
-            builder.OwnsMany(g => g.Name, name =>
+            builder.OwnsOne(g => g.Name, name =>
             {
                 name.ToJson();
-                name.Property(n => n.Content).IsRequired().HasMaxLength(200);
-                name.Property(n => n.Language).IsRequired().HasMaxLength(10);
+                name.OwnsMany(n => n.Texts, text =>
+                {
+                    text.Property(t => t.Language).IsRequired().HasMaxLength(10);
+                    text.Property(t => t.Text).HasMaxLength(200);
+                });
             });
 
-            builder.OwnsMany(g => g.Description, desc =>
+            builder.OwnsOne(g => g.Description, desc =>
             {
                 desc.ToJson();
-                desc.Property(d => d.Content).HasMaxLength(1000);
-                desc.Property(d => d.Language).IsRequired().HasMaxLength(10);
+                desc.OwnsMany(d => d.Texts, text =>
+                {
+                    text.Property(t => t.Language).IsRequired().HasMaxLength(10);
+                    text.Property(t => t.Text).HasMaxLength(1000);
+                });
             });
 
             // Configuración de relaciones
@@ -40,11 +46,11 @@ namespace Yourttoo.Api.DataAccess.Configuration.Geolocation
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Configuración de propiedades de clave foránea
-            builder.Property<Guid>("CountryId")
-                .IsRequired();
+            builder.Property<Guid?>("CountryId")
+                .IsRequired(false);
 
-            builder.Property<Guid>("ZoneId")
-                .IsRequired();
+            builder.Property<Guid?>("ZoneId")
+                .IsRequired(false);
 
             // Índices para las relaciones
             builder.HasIndex("CountryId");

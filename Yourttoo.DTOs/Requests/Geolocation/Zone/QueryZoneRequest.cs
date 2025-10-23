@@ -10,13 +10,12 @@ namespace Yourttoo.DTOs.Requests.Geolocation.Zone
         public string? PromotionArea { get; set; } = null;
         public int? MinPromotionAreaPriority { get; set; } = null;
         public int? MaxPromotionAreaPriority { get; set; } = null;
-        public double? MinAveragePrice { get; set; } = null;
-        public double? MaxAveragePrice { get; set; } = null;
-        public long? MinLatitude { get; set; } = null;
-        public long? MaxLatitude { get; set; } = null;
-        public long? MinLongitude { get; set; } = null;
-        public long? MaxLongitude { get; set; } = null;
+        public decimal? MinAveragePrice { get; set; } = null;
+        public decimal? MaxAveragePrice { get; set; } = null;
+        public double? MinLatitude { get; set; } = null;
+        public double? MaxLatitude { get; set; } = null;
+        public double? MinLongitude { get; set; } = null;
+        public double? MaxLongitude { get; set; } = null;
 
-        public QueryZoneRequest() { }
     }
 }
