@@ -15,7 +15,6 @@ namespace Yourttoo.Api.DataAccess
     public class DatabaseContext : DbContext
     {
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<TagCategory> TagCategory { get; set; }
         public DbSet<AdditionalText> AdditionalText { get; set; }
         public DbSet<FAQSection> FAQSection { get; set; }
         public DbSet<FAQContent> FAQContent { get; set; }
@@ -31,7 +30,6 @@ namespace Yourttoo.Api.DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new TagEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new TagCategoryEntityConfiguration());
             modelBuilder.ApplyConfiguration(new AdditionalTextEntityConfiguration());
             modelBuilder.ApplyConfiguration(new FAQSectionEntityConfiguration());
             modelBuilder.ApplyConfiguration(new FAQContentEntityConfiguration());
