@@ -708,7 +708,8 @@ namespace Yourttoo.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
                         .HasColumnType("TEXT")
-                        .HasDefaultValue("active");
+                        .HasDefaultValue("Active")
+                        .HasComment("Current status of the tag");
 
                     b.Property<string>("TwoFactorEnabledAt")
                         .HasMaxLength(50)
@@ -722,7 +723,14 @@ namespace Yourttoo.Api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT")
+                        .HasComment("Display value of the tag");
 
                     b.HasKey("Id");
 
