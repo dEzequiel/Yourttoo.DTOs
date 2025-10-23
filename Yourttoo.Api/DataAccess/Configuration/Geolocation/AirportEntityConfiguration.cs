@@ -14,15 +14,12 @@ namespace Yourttoo.Api.DataAccess.Configuration.Geolocation
             builder.HasKey(a => a.Id);
 
             // Configuración de propiedades específicas de Airport
-            builder.Property(a => a.CountryCode)
-                .IsRequired()
-                .HasMaxLength(10);
 
-            builder.Property(a => a.IATACode)
+            builder.Property(a => a.IataCode)
                 .IsRequired()
                 .HasMaxLength(3);
 
-            builder.Property(a => a.ICAOCode)
+            builder.Property(a => a.IcaoCode)
                 .IsRequired()
                 .HasMaxLength(4);
 
@@ -39,18 +36,24 @@ namespace Yourttoo.Api.DataAccess.Configuration.Geolocation
                 .HasDefaultValue(0);
 
             // Configuración de propiedades multiidioma
-            builder.OwnsMany(g => g.Name, name =>
+            builder.OwnsOne(g => g.Name, name =>
             {
                 name.ToJson();
-                name.Property(n => n.Content).IsRequired().HasMaxLength(200);
-                name.Property(n => n.Language).IsRequired().HasMaxLength(10);
+                name.OwnsMany(n => n.Texts, text =>
+                {
+                    text.Property(t => t.Language).IsRequired().HasMaxLength(10);
+                    text.Property(t => t.Text).HasMaxLength(200);
+                });
             });
 
-            builder.OwnsMany(g => g.Description, desc =>
+            builder.OwnsOne(g => g.Description, desc =>
             {
                 desc.ToJson();
-                desc.Property(d => d.Content).HasMaxLength(1000);
-                desc.Property(d => d.Language).IsRequired().HasMaxLength(10);
+                desc.OwnsMany(d => d.Texts, text =>
+                {
+                    text.Property(t => t.Language).IsRequired().HasMaxLength(10);
+                    text.Property(t => t.Text).HasMaxLength(1000);
+                });
             });
 
             // Configuración de relaciones
@@ -69,37 +72,27 @@ namespace Yourttoo.Api.DataAccess.Configuration.Geolocation
                 .HasForeignKey("CountryId")
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(a => a.Region)
-                .WithMany()
-                .HasForeignKey("RegionId")
-                .OnDelete(DeleteBehavior.Restrict);
-
             // Configuración de propiedades de clave foránea
-            builder.Property<Guid>("CityId")
-                .IsRequired();
+            builder.Property<Guid?>("CityId")
+                .IsRequired(false);
 
-            builder.Property<Guid>("ZoneId")
-                .IsRequired();
+            builder.Property<Guid?>("ZoneId")
+                .IsRequired(false);
 
-            builder.Property<Guid>("CountryId")
-                .IsRequired();
-
-            builder.Property<Guid>("RegionId")
-                .IsRequired();
+            builder.Property<Guid?>("CountryId")
+                .IsRequired(false);
 
             // Índices específicos
-            builder.HasIndex(a => a.IATACode)
+            builder.HasIndex(a => a.IataCode)
                 .IsUnique();
 
-            builder.HasIndex(a => a.ICAOCode)
+            builder.HasIndex(a => a.IcaoCode)
                 .IsUnique();
 
-            builder.HasIndex(a => a.CountryCode);
             builder.HasIndex(a => a.TimeZone);
             builder.HasIndex("CityId");
             builder.HasIndex("ZoneId");
             builder.HasIndex("CountryId");
-            builder.HasIndex("RegionId");
         }
     }
 }

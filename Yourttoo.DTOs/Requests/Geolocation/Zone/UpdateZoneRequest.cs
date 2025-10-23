@@ -6,11 +6,11 @@ namespace Yourttoo.DTOs.Requests.Geolocation.Zone
     public class UpdateZoneRequest : RequestPayloadBase
     {
         public Guid Id { get; set; } = Guid.Empty;
-        public long Latitude { get; set; }
-        public long Longitude { get; set; }
-        public double AveragePrice { get; set; }
-        public List<MultiLanguageText> Name { get; set; } = new();
-        public List<MultiLanguageText>? Description { get; set; } = new();
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public decimal AveragePrice { get; set; }
+        public MultiLanguageText Name { get; set; } = new();
+        public MultiLanguageText Description { get; set; } = new();
         public string ImageUrl { get; set; } = string.Empty;
         public string IconUrl { get; set; } = string.Empty;
         public string BackgroundColor { get; set; } = string.Empty;
@@ -20,6 +20,5 @@ namespace Yourttoo.DTOs.Requests.Geolocation.Zone
         public string PromotionArea { get; set; } = string.Empty;
         public int PromotionAreaPriority { get; set; }
 
-        public UpdateZoneRequest() { }
     }
 }

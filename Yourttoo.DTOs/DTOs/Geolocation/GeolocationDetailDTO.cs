@@ -1,14 +1,14 @@
 using Yourttoo.DTOs.Common;
 
 namespace Yourttoo.DTOs.DTOs.Geolocation
-{
-    public class GeolocationDetailDTO : DataTransferObject
     {
-        public long Latitude { get; set; }
-        public long Longitude { get; set; }
-        public double AveragePrice { get; set; }
-        public List<MultiLanguageText> Name { get; set; } = new();
-        public List<MultiLanguageText>? Description { get; set; } = new();
+    public abstract class GeolocationDetailDTO : DataTransferObject
+    {
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public decimal AveragePrice { get; set; }
+        public MultiLanguageText Name { get; set; } = new();
+        public MultiLanguageText Description { get; set; } = new();
         public string ImageUrl { get; set; } = string.Empty;
         public string IconUrl { get; set; } = string.Empty;
         public string BackgroundColor { get; set; } = string.Empty;
