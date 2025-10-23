@@ -12,18 +12,27 @@ namespace Yourttoo.Api.Mappings
         {
             // FAQSection mappings
             CreateMap<FAQSection, FAQSectionDTO>()
-                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title.FirstOrDefault() ?? new MultiLanguageText()))
+                .ForMember(dest => dest.Title, opt => opt.MapFrom((src, dest, destMember, context) => 
+                    src.Title.GetText(context.Items["Language"] as string) ?? string.Empty))
                 .ForMember(dest => dest.Contents, opt => opt.MapFrom(src => src.Contents.Select(c => c.Id).ToList()));
 
             CreateMap<FAQSection, FAQSectionDetailDTO>()
+                .ForMember(dest => dest.Title, opt => opt.MapFrom((src, dest, destMember, context) => 
+                    src.Title.GetText(context.Items["Language"] as string) ?? string.Empty))
                 .ForMember(dest => dest.Contents, opt => opt.MapFrom(src => src.Contents.Select(c => c.Id).ToList()));
 
             // FAQContent mappings
             CreateMap<FAQContent, FAQContentDTO>()
-                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title.FirstOrDefault() ?? new MultiLanguageText()))
-                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Content.FirstOrDefault() ?? new MultiLanguageText()));
+                .ForMember(dest => dest.Title, opt => opt.MapFrom((src, dest, destMember, context) => 
+                    src.Title.GetText(context.Items["Language"] as string) ?? string.Empty))
+                .ForMember(dest => dest.Content, opt => opt.MapFrom((src, dest, destMember, context) => 
+                    src.Content.GetText(context.Items["Language"] as string) ?? string.Empty));
 
-            CreateMap<FAQContent, FAQContentDetailDTO>();
+            CreateMap<FAQContent, FAQContentDetailDTO>()
+                .ForMember(dest => dest.Title, opt => opt.MapFrom((src, dest, destMember, context) => 
+                    src.Title.GetText(context.Items["Language"] as string) ?? string.Empty))
+                .ForMember(dest => dest.Content, opt => opt.MapFrom((src, dest, destMember, context) => 
+                    src.Content.GetText(context.Items["Language"] as string) ?? string.Empty));
 
             // Reverse mappings for creation/updates
             CreateMap<FAQSectionDTO, FAQSection>()
@@ -33,7 +42,14 @@ namespace Yourttoo.Api.Mappings
                 .ForMember(dest => dest.UpdatedBy, opt => opt.Ignore())
                 .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
                 .ForMember(dest => dest.Contents, opt => opt.Ignore())
-                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => new List<MultiLanguageText> { src.Title }));
+                .ForMember(dest => dest.Title, opt => opt.MapFrom((src, dest, destMember, context) => 
+                    new MultiLanguageText
+                    {
+                        Texts = new List<LanguageText>
+                        {
+                            new LanguageText { Language = context.Items["Language"] as string, Text = src.Title.GetText(context.Items["Language"] as string) ?? string.Empty }
+                        }
+                    }));
 
             CreateMap<FAQContentDTO, FAQContent>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
@@ -42,8 +58,22 @@ namespace Yourttoo.Api.Mappings
                 .ForMember(dest => dest.UpdatedBy, opt => opt.Ignore())
                 .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
                 .ForMember(dest => dest.FAQSection, opt => opt.Ignore())
-                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => new List<MultiLanguageText> { src.Title }))
-                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => new List<MultiLanguageText> { src.Content! }));
+                .ForMember(dest => dest.Title, opt => opt.MapFrom((src, dest, destMember, context) => 
+                    new MultiLanguageText
+                    {
+                        Texts = new List<LanguageText>
+                        {
+                            new LanguageText { Language = context.Items["Language"] as string, Text = src.Title.GetText(context.Items["Language"] as string) ?? string.Empty }
+                        }
+                    }))
+                .ForMember(dest => dest.Content, opt => opt.MapFrom((src, dest, destMember, context) => 
+                    new MultiLanguageText
+                    {
+                        Texts = new List<LanguageText>
+                        {
+                            new LanguageText { Language = context.Items["Language"] as string, Text = src.Content?.GetText(context.Items["Language"] as string) ?? string.Empty }
+                        }
+                    }));
         }
     }
 }

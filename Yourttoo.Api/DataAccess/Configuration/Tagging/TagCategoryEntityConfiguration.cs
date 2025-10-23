@@ -16,8 +16,25 @@ namespace Yourttoo.Api.DataAccess.Configuration.Tagging
             builder.Property(t => t.UpdatedAt)
                 .HasDefaultValueSql("datetime('now')");
 
-            builder.OwnsMany(tc => tc.Name, name => name.ToJson());
-            builder.OwnsMany(tc => tc.Description, desc => desc.ToJson());
+            builder.OwnsOne(tc => tc.Name, name =>
+            {
+                name.ToJson();
+                name.OwnsMany(n => n.Texts, text =>
+                {
+                    text.Property(t => t.Language).IsRequired().HasMaxLength(10);
+                    text.Property(t => t.Text).HasMaxLength(500);
+                });
+            });
+
+            builder.OwnsOne(tc => tc.Description, desc =>
+            {
+                desc.ToJson();
+                desc.OwnsMany(d => d.Texts, text =>
+                {
+                    text.Property(t => t.Language).IsRequired().HasMaxLength(10);
+                    text.Property(t => t.Text).HasMaxLength(2000);
+                });
+            });
 
             builder.HasMany(tc => tc.Tags)
                 .WithMany(t => t.Categories)

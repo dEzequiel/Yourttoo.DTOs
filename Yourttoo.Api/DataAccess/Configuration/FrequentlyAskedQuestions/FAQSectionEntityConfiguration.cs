@@ -17,11 +17,14 @@ namespace Yourttoo.Api.DataAccess.Configuration.FrequentlyAskedQuestions
             builder.HasIndex(t => new { t.CreatedBy, t.CreatedAt });
 
 
-            builder.OwnsMany(t => t.Title, name =>
+            builder.OwnsOne(t => t.Title, name =>
             {
                 name.ToJson();
-                name.Property(n => n.Content).IsRequired().HasMaxLength(500);
-                name.Property(n => n.Language).IsRequired().HasMaxLength(10);
+                name.OwnsMany(n => n.Texts, text =>
+                {
+                    text.Property(t => t.Language).IsRequired().HasMaxLength(10);
+                    text.Property(t => t.Text).HasMaxLength(500);
+                });
             });
 
             builder.HasMany(t => t.Contents)
