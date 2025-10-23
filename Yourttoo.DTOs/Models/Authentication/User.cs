@@ -17,6 +17,5 @@ namespace Yourttoo.DTOs.Models.Authentication
 
         // Navigation properties
         public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
-        public virtual ICollection<Session> Sessions { get; set; } = new List<Session>();
     }
 }

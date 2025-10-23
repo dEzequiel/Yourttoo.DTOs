@@ -23,25 +23,34 @@ namespace Yourttoo.Api.DataAccess.Configuration.Tagging
             builder.HasIndex(t => t.Status);
             builder.HasIndex(t => new { t.CreatedBy, t.CreatedAt });
 
-            builder.OwnsMany(t => t.Name, name =>
+            builder.OwnsOne(t => t.Name, name =>
             {
                 name.ToJson();
-                name.Property(n => n.Content).IsRequired().HasMaxLength(500);
-                name.Property(n => n.Language).IsRequired().HasMaxLength(10);
+                name.OwnsMany(n => n.Texts, text =>
+                {
+                    text.Property(t => t.Language).IsRequired().HasMaxLength(10);
+                    text.Property(t => t.Text).HasMaxLength(500);
+                });
             });
 
-            builder.OwnsMany(t => t.Description, desc =>
+            builder.OwnsOne(t => t.Description, desc =>
             {
                 desc.ToJson();
-                desc.Property(d => d.Content).IsRequired().HasMaxLength(2000);
-                desc.Property(d => d.Language).IsRequired().HasMaxLength(10);
+                desc.OwnsMany(d => d.Texts, text =>
+                {
+                    text.Property(t => t.Language).IsRequired().HasMaxLength(10);
+                    text.Property(t => t.Text).HasMaxLength(2000);
+                });
             });
 
-            builder.OwnsMany(t => t.Label, label =>
+            builder.OwnsOne(t => t.Label, label =>
             {
                 label.ToJson();
-                label.Property(l => l.Content).IsRequired().HasMaxLength(100);
-                label.Property(l => l.Language).IsRequired().HasMaxLength(10);
+                label.OwnsMany(l => l.Texts, text =>
+                {
+                    text.Property(t => t.Language).IsRequired().HasMaxLength(10);
+                    text.Property(t => t.Text).HasMaxLength(100);
+                });
             });
 
             builder.HasMany(t => t.Categories)

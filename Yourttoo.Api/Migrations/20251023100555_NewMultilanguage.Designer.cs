@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Yourttoo.Api.DataAccess;
 
@@ -10,9 +11,11 @@ using Yourttoo.Api.DataAccess;
 namespace Yourttoo.Api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20251023100555_NewMultilanguage")]
+    partial class NewMultilanguage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.20");
@@ -296,10 +299,15 @@ namespace Yourttoo.Api.Migrations
                     b.Property<string>("Category")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("CityId")
+                    b.Property<Guid>("CityId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("CountryId")
+                    b.Property<string>("CountryCode")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("CountryId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
@@ -319,12 +327,12 @@ namespace Yourttoo.Api.Migrations
                         .HasColumnType("INTEGER")
                         .HasDefaultValue(0);
 
-                    b.Property<string>("IataCode")
+                    b.Property<string>("IATACode")
                         .IsRequired()
                         .HasMaxLength(3)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("IcaoCode")
+                    b.Property<string>("ICAOCode")
                         .IsRequired()
                         .HasMaxLength(4)
                         .HasColumnType("TEXT");
@@ -340,6 +348,9 @@ namespace Yourttoo.Api.Migrations
 
                     b.Property<double>("Longitude")
                         .HasColumnType("REAL");
+
+                    b.Property<Guid>("RegionId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Status")
                         .HasColumnType("TEXT");
@@ -358,20 +369,24 @@ namespace Yourttoo.Api.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("ZoneId")
+                    b.Property<Guid>("ZoneId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CityId");
 
+                    b.HasIndex("CountryCode");
+
                     b.HasIndex("CountryId");
 
-                    b.HasIndex("IataCode")
+                    b.HasIndex("IATACode")
                         .IsUnique();
 
-                    b.HasIndex("IcaoCode")
+                    b.HasIndex("ICAOCode")
                         .IsUnique();
+
+                    b.HasIndex("RegionId");
 
                     b.HasIndex("TimeZone");
 
@@ -396,10 +411,11 @@ namespace Yourttoo.Api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CountryCode")
+                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("CountryId")
+                    b.Property<Guid>("CountryId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
@@ -421,7 +437,7 @@ namespace Yourttoo.Api.Migrations
                     b.Property<double>("Longitude")
                         .HasColumnType("REAL");
 
-                    b.Property<Guid?>("RegionId")
+                    b.Property<Guid>("RegionId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Status")
@@ -436,7 +452,7 @@ namespace Yourttoo.Api.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("ZoneId")
+                    b.Property<Guid>("ZoneId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -465,11 +481,6 @@ namespace Yourttoo.Api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Category")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Continent")
-                        .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
@@ -528,20 +539,13 @@ namespace Yourttoo.Api.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("ZoneId")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("Continent");
 
                     b.HasIndex("Currency");
 
                     b.HasIndex("LanguageCode");
 
                     b.HasIndex("TimeZone");
-
-                    b.HasIndex("ZoneId");
 
                     b.ToTable("Countries", (string)null);
                 });
@@ -561,7 +565,7 @@ namespace Yourttoo.Api.Migrations
                     b.Property<string>("Category")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("CountryId")
+                    b.Property<Guid>("CountryId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
@@ -595,7 +599,7 @@ namespace Yourttoo.Api.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("ZoneId")
+                    b.Property<Guid>("ZoneId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -1051,17 +1055,26 @@ namespace Yourttoo.Api.Migrations
                     b.HasOne("Yourttoo.DTOs.Models.Geolocation.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Yourttoo.DTOs.Models.Geolocation.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Yourttoo.DTOs.Models.Geolocation.Region", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Yourttoo.DTOs.Models.Geolocation.Zone", "Zone")
                         .WithMany()
                         .HasForeignKey("ZoneId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Description", b1 =>
                         {
@@ -1159,6 +1172,8 @@ namespace Yourttoo.Api.Migrations
                     b.Navigation("Name")
                         .IsRequired();
 
+                    b.Navigation("Region");
+
                     b.Navigation("Zone");
                 });
 
@@ -1167,12 +1182,20 @@ namespace Yourttoo.Api.Migrations
                     b.HasOne("Yourttoo.DTOs.Models.Geolocation.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Yourttoo.DTOs.Models.Geolocation.Region", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Yourttoo.DTOs.Models.Geolocation.Zone", "Zone")
                         .WithMany()
                         .HasForeignKey("ZoneId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Description", b1 =>
                         {
@@ -1268,17 +1291,13 @@ namespace Yourttoo.Api.Migrations
                     b.Navigation("Name")
                         .IsRequired();
 
+                    b.Navigation("Region");
+
                     b.Navigation("Zone");
                 });
 
             modelBuilder.Entity("Yourttoo.DTOs.Models.Geolocation.Country", b =>
                 {
-                    b.HasOne("Yourttoo.DTOs.Models.Geolocation.Zone", "Zone")
-                        .WithMany("Countries")
-                        .HasForeignKey("ZoneId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Description", b1 =>
                         {
                             b1.Property<Guid>("CountryId")
@@ -1370,8 +1389,6 @@ namespace Yourttoo.Api.Migrations
 
                     b.Navigation("Name")
                         .IsRequired();
-
-                    b.Navigation("Zone");
                 });
 
             modelBuilder.Entity("Yourttoo.DTOs.Models.Geolocation.Region", b =>
@@ -1379,12 +1396,14 @@ namespace Yourttoo.Api.Migrations
                     b.HasOne("Yourttoo.DTOs.Models.Geolocation.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Yourttoo.DTOs.Models.Geolocation.Zone", "Zone")
                         .WithMany()
                         .HasForeignKey("ZoneId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Description", b1 =>
                         {
@@ -1827,11 +1846,6 @@ namespace Yourttoo.Api.Migrations
             modelBuilder.Entity("Yourttoo.DTOs.Models.FrequentlyAskedQuestions.FAQSection", b =>
                 {
                     b.Navigation("Contents");
-                });
-
-            modelBuilder.Entity("Yourttoo.DTOs.Models.Geolocation.Zone", b =>
-                {
-                    b.Navigation("Countries");
                 });
 #pragma warning restore 612, 618
         }

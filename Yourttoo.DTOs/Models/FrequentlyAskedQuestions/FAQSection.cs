@@ -6,7 +6,7 @@ namespace Yourttoo.DTOs.Models.FrequentlyAskedQuestions
     public class FAQSection : IEntity
     {
         public Guid Id { get; set; }
-        public List<MultiLanguageText> Title { get; set; } = new();
+        public MultiLanguageText Title { get; set; } = new();
         public string? Category { get; set; } = null;
         public string? Type { get; set; } = null;
         public string CreatedBy { get; set; } = string.Empty;
