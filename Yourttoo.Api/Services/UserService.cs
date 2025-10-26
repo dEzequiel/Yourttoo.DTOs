@@ -31,6 +31,7 @@ namespace Yourttoo.Api.Services
                     _logger.LogWarning("User not found for email: {Email}", email);
                     return null;
                 }
+                }
 
                 return _mapper.Map<User, UserDTO>(user);
             }

@@ -142,6 +142,8 @@ namespace Yourttoo.Api.Migrations
 
                     b.Property<decimal>("AveragePrice")
                         .HasColumnType("TEXT");
+                    b.Property<decimal>("AveragePrice")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("BackgroundColor")
                         .HasColumnType("TEXT");
@@ -150,8 +152,10 @@ namespace Yourttoo.Api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("CityId")
+                    b.Property<Guid?>("CityId")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("CountryId")
                     b.Property<Guid?>("CountryId")
                         .HasColumnType("TEXT");
 
@@ -173,10 +177,12 @@ namespace Yourttoo.Api.Migrations
                         .HasDefaultValue(0);
 
                     b.Property<string>("IataCode")
+                    b.Property<string>("IataCode")
                         .IsRequired()
                         .HasMaxLength(3)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("IcaoCode")
                     b.Property<string>("IcaoCode")
                         .IsRequired()
                         .HasMaxLength(4)
@@ -190,7 +196,11 @@ namespace Yourttoo.Api.Migrations
 
                     b.Property<double>("Latitude")
                         .HasColumnType("REAL");
+                    b.Property<double>("Latitude")
+                        .HasColumnType("REAL");
 
+                    b.Property<double>("Longitude")
+                        .HasColumnType("REAL");
                     b.Property<double>("Longitude")
                         .HasColumnType("REAL");
 
@@ -212,6 +222,7 @@ namespace Yourttoo.Api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("ZoneId")
+                    b.Property<Guid?>("ZoneId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -221,8 +232,10 @@ namespace Yourttoo.Api.Migrations
                     b.HasIndex("CountryId");
 
                     b.HasIndex("IataCode")
+                    b.HasIndex("IataCode")
                         .IsUnique();
 
+                    b.HasIndex("IcaoCode")
                     b.HasIndex("IcaoCode")
                         .IsUnique();
 
@@ -241,6 +254,8 @@ namespace Yourttoo.Api.Migrations
 
                     b.Property<decimal>("AveragePrice")
                         .HasColumnType("TEXT");
+                    b.Property<decimal>("AveragePrice")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("BackgroundColor")
                         .HasColumnType("TEXT");
@@ -252,6 +267,7 @@ namespace Yourttoo.Api.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("CountryId")
                     b.Property<Guid?>("CountryId")
                         .HasColumnType("TEXT");
 
@@ -270,10 +286,15 @@ namespace Yourttoo.Api.Migrations
 
                     b.Property<double>("Latitude")
                         .HasColumnType("REAL");
+                    b.Property<double>("Latitude")
+                        .HasColumnType("REAL");
 
                     b.Property<double>("Longitude")
                         .HasColumnType("REAL");
+                    b.Property<double>("Longitude")
+                        .HasColumnType("REAL");
 
+                    b.Property<Guid?>("RegionId")
                     b.Property<Guid?>("RegionId")
                         .HasColumnType("TEXT");
 
@@ -289,6 +310,7 @@ namespace Yourttoo.Api.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("ZoneId")
                     b.Property<Guid?>("ZoneId")
                         .HasColumnType("TEXT");
 
@@ -313,6 +335,8 @@ namespace Yourttoo.Api.Migrations
 
                     b.Property<decimal>("AveragePrice")
                         .HasColumnType("TEXT");
+                    b.Property<decimal>("AveragePrice")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("BackgroundColor")
                         .HasColumnType("TEXT");
@@ -321,7 +345,11 @@ namespace Yourttoo.Api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Continent")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Continent")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
@@ -360,7 +388,11 @@ namespace Yourttoo.Api.Migrations
 
                     b.Property<double>("Latitude")
                         .HasColumnType("REAL");
+                    b.Property<double>("Latitude")
+                        .HasColumnType("REAL");
 
+                    b.Property<double>("Longitude")
+                        .HasColumnType("REAL");
                     b.Property<double>("Longitude")
                         .HasColumnType("REAL");
 
@@ -384,7 +416,12 @@ namespace Yourttoo.Api.Migrations
                     b.Property<Guid>("ZoneId")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid>("ZoneId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Continent");
 
                     b.HasIndex("Continent");
 
@@ -393,6 +430,8 @@ namespace Yourttoo.Api.Migrations
                     b.HasIndex("LanguageCode");
 
                     b.HasIndex("TimeZone");
+
+                    b.HasIndex("ZoneId");
 
                     b.HasIndex("ZoneId");
 
@@ -407,6 +446,8 @@ namespace Yourttoo.Api.Migrations
 
                     b.Property<decimal>("AveragePrice")
                         .HasColumnType("TEXT");
+                    b.Property<decimal>("AveragePrice")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("BackgroundColor")
                         .HasColumnType("TEXT");
@@ -414,6 +455,7 @@ namespace Yourttoo.Api.Migrations
                     b.Property<string>("Category")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("CountryId")
                     b.Property<Guid?>("CountryId")
                         .HasColumnType("TEXT");
 
@@ -432,7 +474,11 @@ namespace Yourttoo.Api.Migrations
 
                     b.Property<double>("Latitude")
                         .HasColumnType("REAL");
+                    b.Property<double>("Latitude")
+                        .HasColumnType("REAL");
 
+                    b.Property<double>("Longitude")
+                        .HasColumnType("REAL");
                     b.Property<double>("Longitude")
                         .HasColumnType("REAL");
 
@@ -448,6 +494,7 @@ namespace Yourttoo.Api.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("ZoneId")
                     b.Property<Guid?>("ZoneId")
                         .HasColumnType("TEXT");
 
@@ -468,6 +515,8 @@ namespace Yourttoo.Api.Migrations
 
                     b.Property<decimal>("AveragePrice")
                         .HasColumnType("TEXT");
+                    b.Property<decimal>("AveragePrice")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("BackgroundColor")
                         .HasColumnType("TEXT");
@@ -490,7 +539,11 @@ namespace Yourttoo.Api.Migrations
 
                     b.Property<double>("Latitude")
                         .HasColumnType("REAL");
+                    b.Property<double>("Latitude")
+                        .HasColumnType("REAL");
 
+                    b.Property<double>("Longitude")
+                        .HasColumnType("REAL");
                     b.Property<double>("Longitude")
                         .HasColumnType("REAL");
 
@@ -535,6 +588,10 @@ namespace Yourttoo.Api.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT")
                         .HasComment("Main category classification of the tag");
+                    b.Property<string>("Category")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT")
+                        .HasComment("Main category classification of the tag");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -542,6 +599,7 @@ namespace Yourttoo.Api.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
@@ -554,9 +612,22 @@ namespace Yourttoo.Api.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("TEXT")
                         .HasComment("URL to the main image for the tag");
+                    b.Property<string>("IconUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT")
+                        .HasComment("URL to the icon image for the tag");
+
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT")
+                        .HasComment("URL to the main image for the tag");
 
                     b.Property<string>("Key")
+                    b.Property<string>("Key")
                         .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT")
+                        .HasComment("Unique identifier key for the tag");
                         .HasMaxLength(100)
                         .HasColumnType("TEXT")
                         .HasComment("Unique identifier key for the tag");
@@ -565,7 +636,10 @@ namespace Yourttoo.Api.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT")
+                        .HasDefaultValue("Active")
+                        .HasComment("Current status of the tag");
                         .HasDefaultValue("Active")
                         .HasComment("Current status of the tag");
 
@@ -576,9 +650,22 @@ namespace Yourttoo.Api.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
+                    b.Property<string>("SubCategory")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT")
+                        .HasComment("Sub-category classification of the tag");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT")
+                        .HasDefaultValue("SearchKeyword")
+                        .HasComment("Type of tag (Category, Feature, Theme, etc.)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
                         .HasDefaultValue("SearchKeyword")
                         .HasComment("Type of tag (Category, Feature, Theme, etc.)");
 
@@ -587,7 +674,14 @@ namespace Yourttoo.Api.Migrations
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(100)
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT")
+                        .HasComment("Display value of the tag");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -606,7 +700,21 @@ namespace Yourttoo.Api.Migrations
                     b.HasIndex("Key")
                         .IsUnique()
                         .HasDatabaseName("IX_Tags_Key");
+                    b.HasIndex("Category")
+                        .HasDatabaseName("IX_Tags_Category");
 
+                    b.HasIndex("CreatedAt")
+                        .HasDatabaseName("IX_Tags_CreatedAt");
+
+                    b.HasIndex("Key")
+                        .IsUnique()
+                        .HasDatabaseName("IX_Tags_Key");
+
+                    b.HasIndex("Status")
+                        .HasDatabaseName("IX_Tags_Status");
+
+                    b.HasIndex("SubCategory")
+                        .HasDatabaseName("IX_Tags_SubCategory");
                     b.HasIndex("Status")
                         .HasDatabaseName("IX_Tags_Status");
 
@@ -618,7 +726,20 @@ namespace Yourttoo.Api.Migrations
 
                     b.HasIndex("UpdatedAt")
                         .HasDatabaseName("IX_Tags_UpdatedAt");
+                    b.HasIndex("Type")
+                        .HasDatabaseName("IX_Tags_Type");
 
+                    b.HasIndex("UpdatedAt")
+                        .HasDatabaseName("IX_Tags_UpdatedAt");
+
+                    b.HasIndex("Value")
+                        .HasDatabaseName("IX_Tags_Value");
+
+                    b.HasIndex("Category", "SubCategory")
+                        .HasDatabaseName("IX_Tags_Category_SubCategory");
+
+                    b.HasIndex("Type", "Status")
+                        .HasDatabaseName("IX_Tags_Type_Status");
                     b.HasIndex("Value")
                         .HasDatabaseName("IX_Tags_Value");
 
@@ -634,13 +755,20 @@ namespace Yourttoo.Api.Migrations
 
                             t.HasCheckConstraint("CK_Tags_Type", "Type IN ('Category', 'Feature', 'Theme', 'Topic', 'Destination', 'Service', 'Audience', 'Style', 'PriceRange', 'SearchKeyword')");
                         });
+                    b.ToTable("Tags", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_Tags_Status", "Status IN ('Active', 'Inactive', 'Pending', 'Deleted', 'Archived', 'Draft', 'Approved', 'Rejected', 'Suspended', 'Expired', 'Completed', 'Cancelled', 'Processing', 'On_Hold', 'New', 'Updated', 'Verified', 'Unverified')");
+
+                            t.HasCheckConstraint("CK_Tags_Type", "Type IN ('Category', 'Feature', 'Theme', 'Topic', 'Destination', 'Service', 'Audience', 'Style', 'PriceRange', 'SearchKeyword')");
+                        });
                 });
 
             modelBuilder.Entity("Yourttoo.DTOs.Models.Users.Account", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                    b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Content", b1 =>
+                        {
+                            b1.Property<Guid>("AdditionalTextId")
+                                .HasColumnType("TEXT");
 
                     b.Property<string>("AccountType")
                         .IsRequired()
@@ -721,8 +849,9 @@ namespace Yourttoo.Api.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("TEXT");
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(2000)
+                                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -860,7 +989,7 @@ namespace Yourttoo.Api.Migrations
 
                             b1.ToTable("AdditionalText");
 
-                            b1.ToJson("Content");
+                            b1.ToJson("Title");
 
                             b1.WithOwner()
                                 .HasForeignKey("AdditionalTextId");
@@ -869,11 +998,22 @@ namespace Yourttoo.Api.Migrations
                                 {
                                     b2.Property<Guid>("MultiLanguageTextAdditionalTextId")
                                         .HasColumnType("TEXT");
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextAdditionalTextId")
+                                        .HasColumnType("TEXT");
 
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAddOrUpdate()
                                         .HasColumnType("INTEGER");
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
 
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
                                     b2.Property<string>("Language")
                                         .IsRequired()
                                         .HasMaxLength(10)
@@ -901,9 +1041,11 @@ namespace Yourttoo.Api.Migrations
 
                             b1.HasKey("AdditionalTextId");
 
-                            b1.ToTable("AdditionalText");
+                                    b2.ToTable("AdditionalText");
 
-                            b1.ToJson("Title");
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextAdditionalTextId");
+                                });
 
                             b1.WithOwner()
                                 .HasForeignKey("AdditionalTextId");
@@ -952,10 +1094,28 @@ namespace Yourttoo.Api.Migrations
                         .IsRequired();
 
                     b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Content", b1 =>
+                    b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Content", b1 =>
                         {
                             b1.Property<Guid>("FAQContentId")
                                 .HasColumnType("TEXT");
 
+                            b1.HasKey("FAQContentId");
+
+                            b1.ToTable("FAQContent");
+
+                            b1.ToJson("Content");
+
+                            b1.WithOwner()
+                                .HasForeignKey("FAQContentId");
+
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextFAQContentId")
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
                             b1.HasKey("FAQContentId");
 
                             b1.ToTable("FAQContent");
@@ -982,7 +1142,29 @@ namespace Yourttoo.Api.Migrations
                                     b2.Property<string>("Text")
                                         .HasMaxLength(2000)
                                         .HasColumnType("TEXT");
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
 
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(2000)
+                                        .HasColumnType("TEXT");
+
+                                    b2.HasKey("MultiLanguageTextFAQContentId", "Id");
+
+                                    b2.ToTable("FAQContent");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextFAQContentId");
+                                });
+
+                            b1.Navigation("Texts");
+                        });
+
+                    b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Title", b1 =>
+                        {
+                            b1.Property<Guid>("FAQContentId")
                                     b2.HasKey("MultiLanguageTextFAQContentId", "Id");
 
                                     b2.ToTable("FAQContent");
@@ -1000,9 +1182,11 @@ namespace Yourttoo.Api.Migrations
                                 .HasColumnType("TEXT");
 
                             b1.HasKey("FAQContentId");
+                            b1.HasKey("FAQContentId");
 
                             b1.ToTable("FAQContent");
 
+                            b1.ToJson("Title");
                             b1.ToJson("Title");
 
                             b1.WithOwner()
@@ -1012,7 +1196,14 @@ namespace Yourttoo.Api.Migrations
                                 {
                                     b2.Property<Guid>("MultiLanguageTextFAQContentId")
                                         .HasColumnType("TEXT");
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextFAQContentId")
+                                        .HasColumnType("TEXT");
 
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAddOrUpdate()
                                         .HasColumnType("INTEGER");
@@ -1021,22 +1212,37 @@ namespace Yourttoo.Api.Migrations
                                         .IsRequired()
                                         .HasMaxLength(10)
                                         .HasColumnType("TEXT");
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
 
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(500)
+                                        .HasColumnType("TEXT");
                                     b2.Property<string>("Text")
                                         .HasMaxLength(500)
                                         .HasColumnType("TEXT");
 
                                     b2.HasKey("MultiLanguageTextFAQContentId", "Id");
+                                    b2.HasKey("MultiLanguageTextFAQContentId", "Id");
 
+                                    b2.ToTable("FAQContent");
                                     b2.ToTable("FAQContent");
 
                                     b2.WithOwner()
                                         .HasForeignKey("MultiLanguageTextFAQContentId");
                                 });
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextFAQContentId");
+                                });
 
+                            b1.Navigation("Texts");
                             b1.Navigation("Texts");
                         });
 
+                    b.Navigation("Content")
+                        .IsRequired();
                     b.Navigation("Content")
                         .IsRequired();
 
@@ -1044,10 +1250,13 @@ namespace Yourttoo.Api.Migrations
 
                     b.Navigation("Title")
                         .IsRequired();
+                    b.Navigation("Title")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Yourttoo.DTOs.Models.FrequentlyAskedQuestions.FAQSection", b =>
                 {
+                    b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Title", b1 =>
                     b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Title", b1 =>
                         {
                             b1.Property<Guid>("FAQSectionId")
@@ -1061,7 +1270,19 @@ namespace Yourttoo.Api.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("FAQSectionId");
+                            b1.HasKey("FAQSectionId");
 
+                            b1.ToTable("FAQSection");
+
+                            b1.ToJson("Title");
+
+                            b1.WithOwner()
+                                .HasForeignKey("FAQSectionId");
+
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextFAQSectionId")
+                                        .HasColumnType("TEXT");
                             b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
                                 {
                                     b2.Property<Guid>("MultiLanguageTextFAQSectionId")
@@ -1075,19 +1296,40 @@ namespace Yourttoo.Api.Migrations
                                         .IsRequired()
                                         .HasMaxLength(10)
                                         .HasColumnType("TEXT");
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
 
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(500)
+                                        .HasColumnType("TEXT");
                                     b2.Property<string>("Text")
                                         .HasMaxLength(500)
                                         .HasColumnType("TEXT");
 
                                     b2.HasKey("MultiLanguageTextFAQSectionId", "Id");
+                                    b2.HasKey("MultiLanguageTextFAQSectionId", "Id");
 
+                                    b2.ToTable("FAQSection");
                                     b2.ToTable("FAQSection");
 
                                     b2.WithOwner()
                                         .HasForeignKey("MultiLanguageTextFAQSectionId");
                                 });
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextFAQSectionId");
+                                });
 
+                            b1.Navigation("Texts");
+                        });
+
+                    b.Navigation("Title")
+                        .IsRequired();
                             b1.Navigation("Texts");
                         });
 
@@ -1101,22 +1343,43 @@ namespace Yourttoo.Api.Migrations
                         .WithMany()
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Yourttoo.DTOs.Models.Geolocation.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Restrict);
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Yourttoo.DTOs.Models.Geolocation.Zone", "Zone")
                         .WithMany()
                         .HasForeignKey("ZoneId")
                         .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict);
 
+                    b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Description", b1 =>
                     b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Description", b1 =>
                         {
                             b1.Property<Guid>("AirportId")
                                 .HasColumnType("TEXT");
 
+                            b1.HasKey("AirportId");
+
+                            b1.ToTable("Airports");
+
+                            b1.ToJson("Description");
+
+                            b1.WithOwner()
+                                .HasForeignKey("AirportId");
+
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextAirportId")
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
                             b1.HasKey("AirportId");
 
                             b1.ToTable("Airports");
@@ -1143,7 +1406,29 @@ namespace Yourttoo.Api.Migrations
                                     b2.Property<string>("Text")
                                         .HasMaxLength(1000)
                                         .HasColumnType("TEXT");
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
 
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(1000)
+                                        .HasColumnType("TEXT");
+
+                                    b2.HasKey("MultiLanguageTextAirportId", "Id");
+
+                                    b2.ToTable("Airports");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextAirportId");
+                                });
+
+                            b1.Navigation("Texts");
+                        });
+
+                    b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Name", b1 =>
+                        {
+                            b1.Property<Guid>("AirportId")
                                     b2.HasKey("MultiLanguageTextAirportId", "Id");
 
                                     b2.ToTable("Airports");
@@ -1161,9 +1446,11 @@ namespace Yourttoo.Api.Migrations
                                 .HasColumnType("TEXT");
 
                             b1.HasKey("AirportId");
+                            b1.HasKey("AirportId");
 
                             b1.ToTable("Airports");
 
+                            b1.ToJson("Name");
                             b1.ToJson("Name");
 
                             b1.WithOwner()
@@ -1173,7 +1460,14 @@ namespace Yourttoo.Api.Migrations
                                 {
                                     b2.Property<Guid>("MultiLanguageTextAirportId")
                                         .HasColumnType("TEXT");
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextAirportId")
+                                        .HasColumnType("TEXT");
 
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAddOrUpdate()
                                         .HasColumnType("INTEGER");
@@ -1182,19 +1476,32 @@ namespace Yourttoo.Api.Migrations
                                         .IsRequired()
                                         .HasMaxLength(10)
                                         .HasColumnType("TEXT");
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
 
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(200)
+                                        .HasColumnType("TEXT");
                                     b2.Property<string>("Text")
                                         .HasMaxLength(200)
                                         .HasColumnType("TEXT");
 
                                     b2.HasKey("MultiLanguageTextAirportId", "Id");
+                                    b2.HasKey("MultiLanguageTextAirportId", "Id");
 
+                                    b2.ToTable("Airports");
                                     b2.ToTable("Airports");
 
                                     b2.WithOwner()
                                         .HasForeignKey("MultiLanguageTextAirportId");
                                 });
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextAirportId");
+                                });
 
+                            b1.Navigation("Texts");
                             b1.Navigation("Texts");
                         });
 
@@ -1204,7 +1511,11 @@ namespace Yourttoo.Api.Migrations
 
                     b.Navigation("Description")
                         .IsRequired();
+                    b.Navigation("Description")
+                        .IsRequired();
 
+                    b.Navigation("Name")
+                        .IsRequired();
                     b.Navigation("Name")
                         .IsRequired();
 
@@ -1217,17 +1528,37 @@ namespace Yourttoo.Api.Migrations
                         .WithMany()
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Yourttoo.DTOs.Models.Geolocation.Zone", "Zone")
                         .WithMany()
                         .HasForeignKey("ZoneId")
                         .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict);
 
+                    b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Description", b1 =>
                     b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Description", b1 =>
                         {
                             b1.Property<Guid>("CityId")
                                 .HasColumnType("TEXT");
 
+                            b1.HasKey("CityId");
+
+                            b1.ToTable("Cities");
+
+                            b1.ToJson("Description");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CityId");
+
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextCityId")
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
                             b1.HasKey("CityId");
 
                             b1.ToTable("Cities");
@@ -1254,7 +1585,29 @@ namespace Yourttoo.Api.Migrations
                                     b2.Property<string>("Text")
                                         .HasMaxLength(1000)
                                         .HasColumnType("TEXT");
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
 
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(1000)
+                                        .HasColumnType("TEXT");
+
+                                    b2.HasKey("MultiLanguageTextCityId", "Id");
+
+                                    b2.ToTable("Cities");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextCityId");
+                                });
+
+                            b1.Navigation("Texts");
+                        });
+
+                    b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Name", b1 =>
+                        {
+                            b1.Property<Guid>("CityId")
                                     b2.HasKey("MultiLanguageTextCityId", "Id");
 
                                     b2.ToTable("Cities");
@@ -1272,9 +1625,11 @@ namespace Yourttoo.Api.Migrations
                                 .HasColumnType("TEXT");
 
                             b1.HasKey("CityId");
+                            b1.HasKey("CityId");
 
                             b1.ToTable("Cities");
 
+                            b1.ToJson("Name");
                             b1.ToJson("Name");
 
                             b1.WithOwner()
@@ -1284,7 +1639,14 @@ namespace Yourttoo.Api.Migrations
                                 {
                                     b2.Property<Guid>("MultiLanguageTextCityId")
                                         .HasColumnType("TEXT");
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextCityId")
+                                        .HasColumnType("TEXT");
 
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAddOrUpdate()
                                         .HasColumnType("INTEGER");
@@ -1293,19 +1655,32 @@ namespace Yourttoo.Api.Migrations
                                         .IsRequired()
                                         .HasMaxLength(10)
                                         .HasColumnType("TEXT");
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
 
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(200)
+                                        .HasColumnType("TEXT");
                                     b2.Property<string>("Text")
                                         .HasMaxLength(200)
                                         .HasColumnType("TEXT");
 
                                     b2.HasKey("MultiLanguageTextCityId", "Id");
+                                    b2.HasKey("MultiLanguageTextCityId", "Id");
 
+                                    b2.ToTable("Cities");
                                     b2.ToTable("Cities");
 
                                     b2.WithOwner()
                                         .HasForeignKey("MultiLanguageTextCityId");
                                 });
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextCityId");
+                                });
 
+                            b1.Navigation("Texts");
                             b1.Navigation("Texts");
                         });
 
@@ -1313,7 +1688,11 @@ namespace Yourttoo.Api.Migrations
 
                     b.Navigation("Description")
                         .IsRequired();
+                    b.Navigation("Description")
+                        .IsRequired();
 
+                    b.Navigation("Name")
+                        .IsRequired();
                     b.Navigation("Name")
                         .IsRequired();
 
@@ -1322,6 +1701,13 @@ namespace Yourttoo.Api.Migrations
 
             modelBuilder.Entity("Yourttoo.DTOs.Models.Geolocation.Country", b =>
                 {
+                    b.HasOne("Yourttoo.DTOs.Models.Geolocation.Zone", "Zone")
+                        .WithMany("Countries")
+                        .HasForeignKey("ZoneId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Description", b1 =>
                     b.HasOne("Yourttoo.DTOs.Models.Geolocation.Zone", "Zone")
                         .WithMany("Countries")
                         .HasForeignKey("ZoneId")
@@ -1350,7 +1736,32 @@ namespace Yourttoo.Api.Migrations
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAddOrUpdate()
                                         .HasColumnType("INTEGER");
+                            b1.HasKey("CountryId");
 
+                            b1.ToTable("Countries");
+
+                            b1.ToJson("Description");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CountryId");
+
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextCountryId")
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
+
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(1000)
+                                        .HasColumnType("TEXT");
                                     b2.Property<string>("Language")
                                         .IsRequired()
                                         .HasMaxLength(10)
@@ -1374,35 +1785,6 @@ namespace Yourttoo.Api.Migrations
                     b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Name", b1 =>
                         {
                             b1.Property<Guid>("CountryId")
-                                .HasColumnType("TEXT");
-
-                            b1.HasKey("CountryId");
-
-                            b1.ToTable("Countries");
-
-                            b1.ToJson("Name");
-
-                            b1.WithOwner()
-                                .HasForeignKey("CountryId");
-
-                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
-                                {
-                                    b2.Property<Guid>("MultiLanguageTextCountryId")
-                                        .HasColumnType("TEXT");
-
-                                    b2.Property<int>("Id")
-                                        .ValueGeneratedOnAddOrUpdate()
-                                        .HasColumnType("INTEGER");
-
-                                    b2.Property<string>("Language")
-                                        .IsRequired()
-                                        .HasMaxLength(10)
-                                        .HasColumnType("TEXT");
-
-                                    b2.Property<string>("Text")
-                                        .HasMaxLength(200)
-                                        .HasColumnType("TEXT");
-
                                     b2.HasKey("MultiLanguageTextCountryId", "Id");
 
                                     b2.ToTable("Countries");
@@ -1414,9 +1796,80 @@ namespace Yourttoo.Api.Migrations
                             b1.Navigation("Texts");
                         });
 
+                    b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Name", b1 =>
+                        {
+                            b1.Property<Guid>("CountryId")
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("CountryId");
+                            b1.HasKey("CountryId");
+
+                            b1.ToTable("Countries");
+
+                            b1.ToJson("Name");
+                            b1.ToJson("Name");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CountryId");
+
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextCountryId")
+                                        .HasColumnType("TEXT");
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextCountryId")
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
+
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(200)
+                                        .HasColumnType("TEXT");
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(200)
+                                        .HasColumnType("TEXT");
+
+                                    b2.HasKey("MultiLanguageTextCountryId", "Id");
+                                    b2.HasKey("MultiLanguageTextCountryId", "Id");
+
+                                    b2.ToTable("Countries");
+                                    b2.ToTable("Countries");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextCountryId");
+                                });
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextCountryId");
+                                });
+
+                            b1.Navigation("Texts");
+                            b1.Navigation("Texts");
+                        });
+
+                    b.Navigation("Description")
+                        .IsRequired();
                     b.Navigation("Description")
                         .IsRequired();
 
+                    b.Navigation("Name")
+                        .IsRequired();
+
+                    b.Navigation("Zone");
                     b.Navigation("Name")
                         .IsRequired();
 
@@ -1429,12 +1882,15 @@ namespace Yourttoo.Api.Migrations
                         .WithMany()
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Yourttoo.DTOs.Models.Geolocation.Zone", "Zone")
                         .WithMany()
                         .HasForeignKey("ZoneId")
                         .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict);
 
+                    b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Description", b1 =>
                     b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Description", b1 =>
                         {
                             b1.Property<Guid>("RegionId")
@@ -1457,7 +1913,32 @@ namespace Yourttoo.Api.Migrations
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAddOrUpdate()
                                         .HasColumnType("INTEGER");
+                            b1.HasKey("RegionId");
 
+                            b1.ToTable("Regions");
+
+                            b1.ToJson("Description");
+
+                            b1.WithOwner()
+                                .HasForeignKey("RegionId");
+
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextRegionId")
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
+
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(1000)
+                                        .HasColumnType("TEXT");
                                     b2.Property<string>("Language")
                                         .IsRequired()
                                         .HasMaxLength(10)
@@ -1481,35 +1962,6 @@ namespace Yourttoo.Api.Migrations
                     b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Name", b1 =>
                         {
                             b1.Property<Guid>("RegionId")
-                                .HasColumnType("TEXT");
-
-                            b1.HasKey("RegionId");
-
-                            b1.ToTable("Regions");
-
-                            b1.ToJson("Name");
-
-                            b1.WithOwner()
-                                .HasForeignKey("RegionId");
-
-                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
-                                {
-                                    b2.Property<Guid>("MultiLanguageTextRegionId")
-                                        .HasColumnType("TEXT");
-
-                                    b2.Property<int>("Id")
-                                        .ValueGeneratedOnAddOrUpdate()
-                                        .HasColumnType("INTEGER");
-
-                                    b2.Property<string>("Language")
-                                        .IsRequired()
-                                        .HasMaxLength(10)
-                                        .HasColumnType("TEXT");
-
-                                    b2.Property<string>("Text")
-                                        .HasMaxLength(200)
-                                        .HasColumnType("TEXT");
-
                                     b2.HasKey("MultiLanguageTextRegionId", "Id");
 
                                     b2.ToTable("Regions");
@@ -1521,11 +1973,80 @@ namespace Yourttoo.Api.Migrations
                             b1.Navigation("Texts");
                         });
 
+                    b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Name", b1 =>
+                        {
+                            b1.Property<Guid>("RegionId")
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("RegionId");
+                            b1.HasKey("RegionId");
+
+                            b1.ToTable("Regions");
+
+                            b1.ToJson("Name");
+                            b1.ToJson("Name");
+
+                            b1.WithOwner()
+                                .HasForeignKey("RegionId");
+
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextRegionId")
+                                        .HasColumnType("TEXT");
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextRegionId")
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
+
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(200)
+                                        .HasColumnType("TEXT");
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(200)
+                                        .HasColumnType("TEXT");
+
+                                    b2.HasKey("MultiLanguageTextRegionId", "Id");
+                                    b2.HasKey("MultiLanguageTextRegionId", "Id");
+
+                                    b2.ToTable("Regions");
+                                    b2.ToTable("Regions");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextRegionId");
+                                });
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextRegionId");
+                                });
+
+                            b1.Navigation("Texts");
+                            b1.Navigation("Texts");
+                        });
+
                     b.Navigation("Country");
 
                     b.Navigation("Description")
                         .IsRequired();
+                    b.Navigation("Description")
+                        .IsRequired();
 
+                    b.Navigation("Name")
+                        .IsRequired();
                     b.Navigation("Name")
                         .IsRequired();
 
@@ -1535,10 +2056,12 @@ namespace Yourttoo.Api.Migrations
             modelBuilder.Entity("Yourttoo.DTOs.Models.Geolocation.Zone", b =>
                 {
                     b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Description", b1 =>
+                    b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Description", b1 =>
                         {
                             b1.Property<Guid>("ZoneId")
                                 .HasColumnType("TEXT");
 
+                            b1.HasKey("ZoneId");
                             b1.HasKey("ZoneId");
 
                             b1.ToTable("Zones");
@@ -1552,7 +2075,14 @@ namespace Yourttoo.Api.Migrations
                                 {
                                     b2.Property<Guid>("MultiLanguageTextZoneId")
                                         .HasColumnType("TEXT");
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextZoneId")
+                                        .HasColumnType("TEXT");
 
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAddOrUpdate()
                                         .HasColumnType("INTEGER");
@@ -1561,11 +2091,35 @@ namespace Yourttoo.Api.Migrations
                                         .IsRequired()
                                         .HasMaxLength(10)
                                         .HasColumnType("TEXT");
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
 
                                     b2.Property<string>("Text")
                                         .HasMaxLength(1000)
                                         .HasColumnType("TEXT");
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(1000)
+                                        .HasColumnType("TEXT");
 
+                                    b2.HasKey("MultiLanguageTextZoneId", "Id");
+
+                                    b2.ToTable("Zones");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextZoneId");
+                                });
+
+                            b1.Navigation("Texts");
+                        });
+
+                    b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Name", b1 =>
+                        {
+                            b1.Property<Guid>("ZoneId")
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("ZoneId");
                                     b2.HasKey("MultiLanguageTextZoneId", "Id");
 
                                     b2.ToTable("Zones");
@@ -1596,6 +2150,14 @@ namespace Yourttoo.Api.Migrations
                                     b2.Property<Guid>("MultiLanguageTextZoneId")
                                         .HasColumnType("TEXT");
 
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextZoneId")
+                                        .HasColumnType("TEXT");
+
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAddOrUpdate()
                                         .HasColumnType("INTEGER");
@@ -1604,11 +2166,39 @@ namespace Yourttoo.Api.Migrations
                                         .IsRequired()
                                         .HasMaxLength(10)
                                         .HasColumnType("TEXT");
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
 
                                     b2.Property<string>("Text")
                                         .HasMaxLength(200)
                                         .HasColumnType("TEXT");
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(200)
+                                        .HasColumnType("TEXT");
 
+                                    b2.HasKey("MultiLanguageTextZoneId", "Id");
+
+                                    b2.ToTable("Zones");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextZoneId");
+                                });
+
+                            b1.Navigation("Texts");
+                        });
+
+                    b.Navigation("Description")
+                        .IsRequired();
+
+                    b.Navigation("Name")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Yourttoo.DTOs.Models.Tagging.Tag", b =>
+                {
+                    b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Description", b1 =>
                                     b2.HasKey("MultiLanguageTextZoneId", "Id");
 
                                     b2.ToTable("Zones");
@@ -1635,9 +2225,11 @@ namespace Yourttoo.Api.Migrations
                                 .HasColumnType("TEXT");
 
                             b1.HasKey("TagId");
+                            b1.HasKey("TagId");
 
                             b1.ToTable("Tags");
 
+                            b1.ToJson("Description");
                             b1.ToJson("Description");
 
                             b1.WithOwner()
@@ -1647,7 +2239,14 @@ namespace Yourttoo.Api.Migrations
                                 {
                                     b2.Property<Guid>("MultiLanguageTextTagId")
                                         .HasColumnType("TEXT");
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextTagId")
+                                        .HasColumnType("TEXT");
 
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAddOrUpdate()
                                         .HasColumnType("INTEGER");
@@ -1656,11 +2255,19 @@ namespace Yourttoo.Api.Migrations
                                         .IsRequired()
                                         .HasMaxLength(10)
                                         .HasColumnType("TEXT");
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
 
                                     b2.Property<string>("Text")
                                         .HasMaxLength(1000)
                                         .HasColumnType("TEXT");
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(1000)
+                                        .HasColumnType("TEXT");
 
+                                    b2.HasKey("MultiLanguageTextTagId", "Id");
                                     b2.HasKey("MultiLanguageTextTagId", "Id");
 
                                     b2.ToTable("Tags");
@@ -1673,19 +2280,38 @@ namespace Yourttoo.Api.Migrations
                         });
 
                     b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Name", b1 =>
+                                    b2.ToTable("Tags");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextTagId");
+                                });
+
+                            b1.Navigation("Texts");
+                        });
+
+                    b.OwnsOne("Yourttoo.DTOs.Common.MultiLanguageText", "Name", b1 =>
                         {
+                            b1.Property<Guid>("TagId")
                             b1.Property<Guid>("TagId")
                                 .HasColumnType("TEXT");
 
                             b1.HasKey("TagId");
+                            b1.HasKey("TagId");
 
                             b1.ToTable("Tags");
+                            b1.ToTable("Tags");
 
+                            b1.ToJson("Name");
                             b1.ToJson("Name");
 
                             b1.WithOwner()
                                 .HasForeignKey("TagId");
+                                .HasForeignKey("TagId");
 
+                            b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
+                                {
+                                    b2.Property<Guid>("MultiLanguageTextTagId")
+                                        .HasColumnType("TEXT");
                             b1.OwnsMany("Yourttoo.DTOs.Common.LanguageText", "Texts", b2 =>
                                 {
                                     b2.Property<Guid>("MultiLanguageTextTagId")
@@ -1694,7 +2320,14 @@ namespace Yourttoo.Api.Migrations
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAddOrUpdate()
                                         .HasColumnType("INTEGER");
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAddOrUpdate()
+                                        .HasColumnType("INTEGER");
 
+                                    b2.Property<string>("Language")
+                                        .IsRequired()
+                                        .HasMaxLength(10)
+                                        .HasColumnType("TEXT");
                                     b2.Property<string>("Language")
                                         .IsRequired()
                                         .HasMaxLength(10)
@@ -1703,15 +2336,24 @@ namespace Yourttoo.Api.Migrations
                                     b2.Property<string>("Text")
                                         .HasMaxLength(200)
                                         .HasColumnType("TEXT");
+                                    b2.Property<string>("Text")
+                                        .HasMaxLength(200)
+                                        .HasColumnType("TEXT");
 
                                     b2.HasKey("MultiLanguageTextTagId", "Id");
+                                    b2.HasKey("MultiLanguageTextTagId", "Id");
 
+                                    b2.ToTable("Tags");
                                     b2.ToTable("Tags");
 
                                     b2.WithOwner()
                                         .HasForeignKey("MultiLanguageTextTagId");
                                 });
+                                    b2.WithOwner()
+                                        .HasForeignKey("MultiLanguageTextTagId");
+                                });
 
+                            b1.Navigation("Texts");
                             b1.Navigation("Texts");
                         });
 
