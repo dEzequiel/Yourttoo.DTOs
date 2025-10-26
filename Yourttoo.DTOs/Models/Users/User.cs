@@ -10,7 +10,7 @@ namespace Yourttoo.DTOs.Models.Users
         public string? FullName => $"{FirstName} {LastName}";
         public string Language { get; set; } = Languages.Default; // Default to Spanish
         public string TimeZone { get; set; } = TimeZones.Europe.MADRID; // Default to UTC
-
+        public string? Avatar { get; set; }
         public string? AccountId { get; set; }
 
         public string? Email { get; set; }

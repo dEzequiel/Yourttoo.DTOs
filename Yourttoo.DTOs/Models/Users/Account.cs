@@ -2,7 +2,7 @@ using Yourttoo.DTOs.Common.Constants;
 
 namespace Yourttoo.DTOs.Models.Users
 {
-    public class Account
+    public class Account : IEntity
     {
        public string? Email { get; set; }
         public string Status { get; set; } = UserStatus.ACTIVE; // e.g., active, inactive, pending, suspended (use UserStatus constants)

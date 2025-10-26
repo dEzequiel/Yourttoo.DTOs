@@ -21,6 +21,7 @@ builder.Services.AddControllers();
 
 // Servicios
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();

@@ -11,7 +11,7 @@ namespace Yourttoo.Api.DataAccess.Configuration.User
         {
             // Configuración básica de la tabla
             builder.ToTable("Accounts");
-            builder.HasKey(a => a.Email);
+            builder.HasKey(a => a.Id);
 
             // Configuración de propiedades con tipos explícitos
             builder.Property<string>(a => a.Email)
