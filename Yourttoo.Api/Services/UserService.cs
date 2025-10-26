@@ -6,6 +6,7 @@ using AutoMapper;
 using Yourttoo.DTOs.Requests.User;
 using Yourttoo.DTOs.Common.Constants;
 
+
 namespace Yourttoo.Api.Services
 {
     public class UserService : IUserService
@@ -31,7 +32,6 @@ namespace Yourttoo.Api.Services
                     _logger.LogWarning("User not found for email: {Email}", email);
                     return null;
                 }
-                }
 
                 return _mapper.Map<User, UserDTO>(user);
             }
@@ -41,6 +41,7 @@ namespace Yourttoo.Api.Services
                 return null;
             }
         }
+
 
         public async Task<UserDTO?> GetUserByIdAsync(Guid id)
         {
