@@ -43,8 +43,6 @@ namespace Yourttoo.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetZones([FromQuery] QueryZoneRequest request, [FromQuery] int page = 1,
             [FromQuery] int pageSize = 10)
-        public async Task<IActionResult> GetZones([FromQuery] QueryZoneRequest request, [FromQuery] int page = 1,
-            [FromQuery] int pageSize = 10)
         {
             _logger.LogInformation($"GeolocationController --> GetZones --> Start: {DateTime.UtcNow}");
 
@@ -55,11 +53,6 @@ namespace Yourttoo.Api.Controllers
                 "Request Parameters: SearchTerm={SearchTerm}, Status={Status}, Category={Category}, PromotionArea={PromotionArea}, Language={Language}, Page={Page}, PageSize={PageSize}",
                 request.SearchTerm, request.Status, request.Category, request.PromotionArea,
                 HttpContext.Items["Language"] as string, page, pageSize);
-            _logger.LogInformation(
-                "Request Parameters: SearchTerm={SearchTerm}, Status={Status}, Category={Category}, PromotionArea={PromotionArea}, Language={Language}, Page={Page}, PageSize={PageSize}",
-                request.SearchTerm, request.Status, request.Category, request.PromotionArea,
-                HttpContext.Items["Language"] as string, page, pageSize);
-
             try
             {
                 var query = _context.Zones.AsNoTracking();
@@ -68,16 +61,8 @@ namespace Yourttoo.Api.Controllers
                 if (!string.IsNullOrWhiteSpace(request.SearchTerm))
                 {
                     if (!string.IsNullOrWhiteSpace(HttpContext.Items["Language"] as string))
-                    if (!string.IsNullOrWhiteSpace(HttpContext.Items["Language"] as string))
                     {
                         // Filtrar por idioma específico y buscar en ese idioma
-                        var searchLanguage =
-                            Languages.GetValidLanguageOrDefault(HttpContext.Items["Language"] as string);
-                        query = query.Where(z =>
-                            z.Name.GetText(searchLanguage) != null &&
-                            z.Name.GetText(searchLanguage).Contains(request.SearchTerm) ||
-                            z.Description.GetText(searchLanguage) != null &&
-                            z.Description.GetText(searchLanguage).Contains(request.SearchTerm));
                         var searchLanguage =
                             Languages.GetValidLanguageOrDefault(HttpContext.Items["Language"] as string);
                         query = query.Where(z =>
@@ -163,9 +148,6 @@ namespace Yourttoo.Api.Controllers
                 var language = HttpContext.Items["Language"] as string;
                 var zoneDtos = _mapper.Map<List<Zone>, List<ZoneDTO>>(zones, opt =>
                     opt.Items["Language"] = language);
-                var language = HttpContext.Items["Language"] as string;
-                var zoneDtos = _mapper.Map<List<Zone>, List<ZoneDTO>>(zones, opt =>
-                    opt.Items["Language"] = language);
 
                 var pagination = new PaginatedParameters(page, pageSize, totalCount);
 
@@ -198,7 +180,6 @@ namespace Yourttoo.Api.Controllers
 
                 var zoneDto = _mapper.Map<Zone, ZoneDetailDTO>(zone);
 
-                var zoneDto = _mapper.Map<Zone, ZoneDetailDTO>(zone);
 
                 _logger.LogInformation("GeolocationController --> GetZoneById --> End: {Id}", id);
                 return Ok(new ApiResponse<ZoneDetailDTO>(zoneDto));
@@ -222,7 +203,6 @@ namespace Yourttoo.Api.Controllers
             {
                 var zone = _mapper.Map<CreateZoneRequest, Zone>(request);
                 await _context.Zones.AddAsync(zone);
-                var zone = _mapper.Map<CreateZoneRequest, Zone>(request);
                 await _context.Zones.AddAsync(zone);
                 await _context.SaveChangesAsync();
 
@@ -232,12 +212,8 @@ namespace Yourttoo.Api.Controllers
                 var zoneDto = _mapper.Map<Zone, ZoneDTO>(zone, opt =>
                     opt.Items["Language"] = language);
                 // Obtener el idioma del HttpContext (establecido por el atributo LanguageFromHeader)
-                var language = HttpContext.Items["Language"] as string;
 
-                var zoneDto = _mapper.Map<Zone, ZoneDTO>(zone, opt =>
-                    opt.Items["Language"] = language);
                 _logger.LogInformation("GeolocationController --> CreateZone --> End at {EndTime}", DateTime.UtcNow);
-                return CreatedAtAction(nameof(GetZoneById), new { id = zone.Id }, new ApiResponse<ZoneDTO>(zoneDto));
                 return CreatedAtAction(nameof(GetZoneById), new { id = zone.Id }, new ApiResponse<ZoneDTO>(zoneDto));
             }
             catch (Exception ex)
@@ -287,14 +263,8 @@ namespace Yourttoo.Api.Controllers
                 zone.UpdatedAt = DateTime.UtcNow;
                 await _context.SaveChangesAsync();
 
-                var language = HttpContext.Items["Language"] as string;
                 var zoneDto = _mapper.Map<Zone, ZoneDTO>(zone, opt => 
-                    opt.Items["Language"] = language);
-
-                var language = HttpContext.Items["Language"] as string;
-                var zoneDto = _mapper.Map<Zone, ZoneDTO>(zone, opt => 
-                    opt.Items["Language"] = language);
-
+                    opt.Items["Language"] = HttpContext.Items["Language"] as string);
                 _logger.LogInformation("GeolocationController --> UpdateZone --> End: {Id}", id);
                 return Ok(new ApiResponse<ZoneDTO>(zoneDto));
             }
@@ -350,12 +320,8 @@ namespace Yourttoo.Api.Controllers
 
                 await _context.SaveChangesAsync();
 
-                var language = HttpContext.Items["Language"] as string;
                 var zoneDto = _mapper.Map<Zone, ZoneDTO>(zone, opt => 
-                    opt.Items["Language"] = language);
-                var language = HttpContext.Items["Language"] as string;
-                var zoneDto = _mapper.Map<Zone, ZoneDTO>(zone, opt => 
-                    opt.Items["Language"] = language);
+                    opt.Items["Language"] = HttpContext.Items["Language"] as string);
                 _logger.LogInformation("GeolocationController --> PatchZone --> End: {Id}", id);
                 return Ok(new ApiResponse<ZoneDTO>(zoneDto));
             }
@@ -409,13 +375,12 @@ namespace Yourttoo.Api.Controllers
             _logger.LogInformation($"GeolocationController --> GetCountries --> Start: {DateTime.UtcNow}");
 
             // Extraer idioma del header Accept-Language
-            var language = HttpContext.Items["Language"] as string;
 
 
             // Log de parámetros de la request
             _logger.LogInformation(
                 "Request Parameters: SearchTerm={SearchTerm}, Status={Status}, Category={Category}, Currency={Currency}, LanguageCode={LanguageCode}, Language={Language}, Page={Page}, PageSize={PageSize}",
-                request.SearchTerm, request.Status, request.Category, request.Currency, request.LanguageCode, language,
+                request.SearchTerm, request.Status, request.Category, request.Currency, request.LanguageCode, HttpContext.Items["Language"] as string,
                 page, pageSize);
 
             try
@@ -425,14 +390,14 @@ namespace Yourttoo.Api.Controllers
                 // Aplicar filtros
                 if (!string.IsNullOrWhiteSpace(request.SearchTerm))
                 {
-                    if (!string.IsNullOrWhiteSpace(language))
+                    if (!string.IsNullOrWhiteSpace(HttpContext.Items["Language"] as string))
                     {
                         // Filtrar por idioma específico y buscar en ese idioma
                         query = query.Where(c =>
-                            c.Name.GetText(language) != null &&
-                            c.Name.GetText(language).Contains(request.SearchTerm) ||
-                            c.Description.GetText(language) != null &&
-                            c.Description.GetText(language).Contains(request.SearchTerm));
+                            c.Name.GetText(HttpContext.Items["Language"] as string) != null &&
+                            c.Name.GetText(HttpContext.Items["Language"] as string).Contains(request.SearchTerm) ||
+                            c.Description.GetText(HttpContext.Items["Language"] as string) != null &&
+                            c.Description.GetText(HttpContext.Items["Language"] as string).Contains(request.SearchTerm));
                     }
                     else
                     {
@@ -503,7 +468,7 @@ namespace Yourttoo.Api.Controllers
                 var countries = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
                 var countryDtos = _mapper.Map<List<Country>, List<CountryDTO>>(countries, opt =>
-                    opt.Items["Language"] = language);
+                    opt.Items["Language"] = HttpContext.Items["Language"] as string);
 
                 var pagination = new PaginatedParameters(page, pageSize, totalCount);
 
@@ -559,14 +524,11 @@ namespace Yourttoo.Api.Controllers
                 await _context.SaveChangesAsync();
 
                 // Obtener el idioma del HttpContext (establecido por el atributo LanguageFromHeader)
-                var language = HttpContext.Items["Language"] as string;
-
-                var countryDto = _mapper.Map<Country, CountryDTO>(country, opt =>
-                    opt.Items["Language"] = language);
                 _logger.LogInformation("GeolocationController --> CreateCountry --> End at {EndTime}", DateTime.UtcNow);
                 return CreatedAtAction(nameof(GetCountryById),
                     new { id = country.Id },
-                    new ApiResponse<CountryDTO>(countryDto));
+                    new ApiResponse<CountryDTO>(_mapper.Map<Country, CountryDTO>(country, opt =>
+                        opt.Items["Language"] = HttpContext.Items["Language"] as string)));
             }
             catch (Exception ex)
             {

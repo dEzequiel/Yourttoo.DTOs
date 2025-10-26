@@ -21,10 +21,6 @@ namespace Yourttoo.Api.DataAccess
         public DbSet<AdditionalText> AdditionalText { get; set; }
         public DbSet<FAQSection> FAQSection { get; set; }
         public DbSet<FAQContent> FAQContent { get; set; }
-        public DbSet<Session> Sessions { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<City> Cities { get; set; }
