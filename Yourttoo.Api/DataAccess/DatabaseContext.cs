@@ -40,9 +40,6 @@ namespace Yourttoo.Api.DataAccess
             modelBuilder.ApplyConfiguration(new AdditionalTextEntityConfiguration());
             modelBuilder.ApplyConfiguration(new FAQSectionEntityConfiguration());
             modelBuilder.ApplyConfiguration(new FAQContentEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new RoleEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new UserRoleEntityConfiguration());
             modelBuilder.ApplyConfiguration(new CountryEntityConfiguration());
             modelBuilder.ApplyConfiguration(new RegionEntityConfiguration());
             modelBuilder.ApplyConfiguration(new CityEntityConfiguration());
