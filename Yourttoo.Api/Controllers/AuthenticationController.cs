@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Yourttoo.Api.Services;
 using Yourttoo.DTOs.DTOs.Authentication;
-using Yourttoo.DTOs.Models.Authentication;
 using Yourttoo.DTOs.Requests.Authentication;
 using Yourttoo.DTOs.Shared.API;
 
