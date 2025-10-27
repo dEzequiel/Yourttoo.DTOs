@@ -82,11 +82,14 @@ namespace Yourttoo.Api.Mappings
                 .ForMember(dest => dest.Description, opt => opt.MapFrom((src, dest, destMember, context) =>
                     src.Description.GetText(context.Items["Language"] as string)))
                 .ForMember(dest => dest.Language, opt => opt.MapFrom((src, dest, destMember, context) =>
-                    context.Items["Language"] as string ?? string.Empty));
+                    context.Items["Language"] as string ?? string.Empty))
+                .ForMember(dest => dest.CountryLanguage, opt => opt.MapFrom((src, dest, destMember, context) =>
+                    src.Language));
 
             CreateMap<Country, CountryDetailDTO>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.CountryLanguage, opt => opt.MapFrom(src => src.Language));
 
             CreateMap<CreateCountryRequest, Country>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
