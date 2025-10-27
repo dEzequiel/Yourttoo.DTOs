@@ -38,8 +38,6 @@ namespace Yourttoo.Api.Controllers
                 {
                     _logger.LogWarning("Login failed for email: {Email} - User not found", request.Email);
                     return Unauthorized(new ApiResponse<string>("Credenciales inválidas"));
-                    _logger.LogWarning("Login failed for email: {Email} - User not found", request.Email);
-                    return Unauthorized(new ApiResponse<string>("Credenciales inválidas"));
                 }
 
                 _logger.LogInformation("Login successful for email: {Email}", request.Email);

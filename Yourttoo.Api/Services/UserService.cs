@@ -20,6 +20,7 @@ namespace Yourttoo.Api.Services
         {
             _context = context;
             _logger = logger;
+            _mapper = mapper;
         }
 
 
@@ -48,6 +49,7 @@ namespace Yourttoo.Api.Services
             try
             {
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+                Console.WriteLine(user);
                 if (user == null)
                 {
                     _logger.LogWarning("User not found: {Email}", email);
