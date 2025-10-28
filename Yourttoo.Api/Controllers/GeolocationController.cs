@@ -631,6 +631,7 @@ namespace Yourttoo.Api.Controllers
                 if (request.Currency != null) country.Currency = request.Currency;
                 if (request.CurrencySymbol != null) country.CurrencySymbol = request.CurrencySymbol;
                 if (request.LanguageCode != null) country.LanguageCode = request.LanguageCode;
+                if (request.CountryLanguage != null) country.Language = request.CountryLanguage;
                 if (request.TimeZone != null) country.TimeZone = request.TimeZone;
 
                 country.UpdatedBy = request.CreatedBy ?? "System";

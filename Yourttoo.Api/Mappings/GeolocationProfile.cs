@@ -123,6 +123,7 @@ namespace Yourttoo.Api.Mappings
             CreateMap<PatchCountryRequest, Country>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.Language, opt => opt.MapFrom(src => src.CountryLanguage))
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.Zone, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
