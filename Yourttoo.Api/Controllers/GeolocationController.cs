@@ -938,63 +938,7 @@ namespace Yourttoo.Api.Controllers
                     new ApiResponse<string>("Error interno del servidor"));
             }
         }
-
-        [HttpPatch("cities/{id}")]
-        [ProducesResponseType(typeof(CityDTO), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> PatchCity(Guid id, [FromBody] PatchCityRequest request)
-        {
-            _logger.LogInformation("GeolocationController --> PatchCity --> Start: {Id}", id);
-            try
-            {
-                if (id != request.Id)
-                {
-                    return BadRequest(new ApiResponse<string>("El ID de la URL no coincide con el ID del request"));
-                }
-
-                var city = await _context.Cities.FindAsync(id);
-                if (city == null)
-                {
-                    return NotFound(new ApiResponse<string>("City not found"));
-                }
-
-                // Actualizar solo los campos proporcionados
-                if (request.Latitude.HasValue) city.Latitude = request.Latitude.Value;
-                if (request.Longitude.HasValue) city.Longitude = request.Longitude.Value;
-                if (request.AveragePrice.HasValue) city.AveragePrice = request.AveragePrice.Value;
-                if (request.Name != null) city.Name = request.Name;
-                if (request.Description != null) city.Description = request.Description;
-                if (request.ImageUrl != null) city.ImageUrl = request.ImageUrl;
-                if (request.IconUrl != null) city.IconUrl = request.IconUrl;
-                if (request.BackgroundColor != null) city.BackgroundColor = request.BackgroundColor;
-                if (request.Status != null) city.Status = request.Status;
-                if (request.ThumbnailUrl != null) city.ThumbnailUrl = request.ThumbnailUrl;
-                if (request.Category != null) city.Category = request.Category;
-                if (request.CountryId.HasValue) city.CountryId = request.CountryId.Value;
-                if (request.CountryCode != null) city.CountryCode = request.CountryCode;
-                if (request.ZoneId.HasValue) city.ZoneId = request.ZoneId.Value;
-
-                city.UpdatedBy = request.CreatedBy ?? "System";
-                city.UpdatedAt = DateTime.UtcNow;
-
-                await _context.SaveChangesAsync();
-
-                var language = HttpContext.Items["Language"] as string;
-                var cityDto = _mapper.Map<City, CityDTO>(city, opt =>
-                    opt.Items["Language"] = language);
-                _logger.LogInformation("GeolocationController --> PatchCity --> End: {Id}", id);
-                return Ok(new ApiResponse<CityDTO>(cityDto));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error patching city: {Id}", id);
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    new ApiResponse<string>("Error interno del servidor"));
-            }
-        }
-
+        
         [HttpDelete("cities/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
