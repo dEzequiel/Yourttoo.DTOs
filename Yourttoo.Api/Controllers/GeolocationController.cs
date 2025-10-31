@@ -162,6 +162,27 @@ namespace Yourttoo.Api.Controllers
             }
         }
 
+        [HttpGet("zones/dropdown")]
+        [ProducesResponseType(typeof(List<ZoneDropdownDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetZonesDropdown()
+        {
+            _logger.LogInformation("GeolocationController --> GetZonesDropdown --> Start");
+            try
+            {
+                var zones = await _context.Zones.AsNoTracking().ToListAsync();
+                var language = HttpContext.Items["Language"] as string;
+                var zoneDtos = _mapper.Map<List<Zone>, List<ZoneDropdownDTO>>(zones, opt =>
+                    opt.Items["Language"] = language);
+                return Ok(new ApiResponse<List<ZoneDropdownDTO>>(zoneDtos));
+            } catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving zones dropdown");
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new ApiResponse<string>("Error interno del servidor"));
+            }
+        }
+
         [HttpGet("zones/{id}")]
         [ProducesResponseType(typeof(ZoneDetailDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ZoneDetailDTO), StatusCodes.Status200OK)]
@@ -191,7 +212,7 @@ namespace Yourttoo.Api.Controllers
                     new ApiResponse<string>("Error interno del servidor"));
             }
         }
-
+        
         [HttpPost("zones")]
         [ProducesResponseType(typeof(ZoneDTO), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -483,6 +504,32 @@ namespace Yourttoo.Api.Controllers
             }
         }
 
+
+        [HttpGet("countries/dropdown")]
+        [ProducesResponseType(typeof(List<CountryDropdownDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetCountriesDropdown([FromQuery] Guid? zoneId = null)
+        {
+            _logger.LogInformation("GeolocationController --> GetCountriesDropdown --> Start");
+            try {
+                var query = _context.Countries.AsNoTracking();
+                
+                if (zoneId.HasValue)
+                {
+                    query = query.Where(c => c.ZoneId == zoneId.Value);
+                }
+                
+                var countries = await query.ToListAsync();
+                var language = HttpContext.Items["Language"] as string;
+                var countryDtos = _mapper.Map<List<Country>, List<CountryDropdownDTO>>(countries, opt =>
+                    opt.Items["Language"] = language);
+                return Ok(new ApiResponse<List<CountryDropdownDTO>>(countryDtos));
+            } catch (Exception ex) {
+                _logger.LogError(ex, "Error retrieving countries dropdown");
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new ApiResponse<string>("Error interno del servidor"));
+            }
+        }
         [HttpGet("countries/{id}")]
         [ProducesResponseType(typeof(CountryDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -821,6 +868,25 @@ namespace Yourttoo.Api.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error retrieving cities");
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new ApiResponse<string>("Error interno del servidor"));
+            }
+        }
+
+        [HttpGet("cities/dropdown")]
+        [ProducesResponseType(typeof(List<CityDropdownDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetCitiesDropdown()
+        {
+            _logger.LogInformation("GeolocationController --> GetCitiesDropdown --> Start");
+            try {
+                var cities = await _context.Cities.AsNoTracking().ToListAsync();
+                var language = HttpContext.Items["Language"] as string;
+                var cityDtos = _mapper.Map<List<City>, List<CityDropdownDTO>>(cities, opt =>
+                    opt.Items["Language"] = language);
+                return Ok(new ApiResponse<List<CityDropdownDTO>>(cityDtos));
+            } catch (Exception ex) {
+                _logger.LogError(ex, "Error retrieving cities dropdown");
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     new ApiResponse<string>("Error interno del servidor"));
             }

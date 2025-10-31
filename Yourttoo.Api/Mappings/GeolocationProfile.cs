@@ -42,6 +42,11 @@ namespace Yourttoo.Api.Mappings
                             new LanguageText { Language = context.Items["Language"] as string, Text = src.Description }
                         }
                     }));
+            
+            CreateMap<Zone, ZoneDropdownDTO>()
+                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Label, opt => opt.MapFrom((src, dest, destMember, context) =>
+                    src.Name.GetText(context.Items["Language"] as string)));
 
             CreateMap<CreateZoneRequest, Zone>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -90,6 +95,12 @@ namespace Yourttoo.Api.Mappings
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.CountryLanguage, opt => opt.MapFrom(src => src.Language));
+
+
+            CreateMap<Country, CountryDropdownDTO>()
+                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Label, opt => opt.MapFrom((src, dest, destMember, context) =>
+                    src.Name.GetText(context.Items["Language"] as string)));
 
             CreateMap<CreateCountryRequest, Country>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -152,6 +163,11 @@ namespace Yourttoo.Api.Mappings
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
 
+            CreateMap<City, CityDropdownDTO>()
+                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Label, opt => opt.MapFrom((src, dest, destMember, context) =>
+                    src.Name.GetText(context.Items["Language"] as string)));
+                
             CreateMap<CreateCityRequest, City>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
